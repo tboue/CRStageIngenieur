@@ -1,0 +1,606 @@
+\documentclass[french,a4paper,12pt]{report}
+\title{Dependency discoverer}
+\author{Théophane BOUÉ}
+\date{juin 2021}
+
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+
+\usepackage[french]{babel} %french
+\usepackage[head=0.5in,includeheadfoot,headsep=.5in,left=1in,right=1in,top=.1in,bottom=0.5in,footskip=0.5in]{geometry} %geometry for margins
+\usepackage{eso-pic,graphicx} %eso-pic for background on first page and logos in header
+\usepackage{hyperref} %hyperref
+%\hypersetup{
+%    colorlinks,
+%    linkcolor={red!30!black},
+%    citecolor={blue!50!black},
+%    urlcolor={blue!80!black}
+%}
+
+\usepackage{fontspec} %sets custom font
+\setmainfont{SourceSansPro}[ 
+Path=./ressources/fonts/,
+Extension = .ttf,
+UprightFont = *-Regular,
+ItalicFont  = *-Italic ,
+BoldItalicFont = *-BoldItalic,
+BoldFont= *-Bold]
+
+
+
+
+\newcommand\AtPageUpperRight[1]{\AtPageUpperLeft{%
+   \makebox[.95\paperwidth][r]{#1}}}
+
+ \newcommand\BackgroundLogos{
+           \AtPageUpperRight{\raisebox{-\height}{\includegraphics[width=8cm]{ressources/images/Header-logo.png}}}}
+
+
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}%
+\renewcommand{\chaptermark}[1]{%
+\markboth{#1}{}}
+\fancyhf{}%
+\lhead{ \fontsize{14}{17} \textit{ \textcolor{gray} \leftmark}}%
+\cfoot{\thepage}%
+
+
+\renewcommand{\headrulewidth}{0pt}
+
+
+\usepackage[toc,page]{appendix}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\usepackage{listings}
+\lstset{language=Java}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%BEGINNING%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\pagestyle{empty}
+
+\pagenumbering{roman} 
+\renewcommand{\thepage}{Couverture}
+
+\AddToShipoutPictureBG*{%
+{\includegraphics[width=\paperwidth,height=\paperheight]{ressources/images/premiere4.png}
+}}
+\null\newpage
+\pagenumbering{arabic} 
+\pagestyle{plain}
+\tableofcontents
+\newpage
+
+\pagestyle{fancy}
+
+
+
+\chapter*{Lexicon}
+\addcontentsline{toc}{chapter}{Lexicon}
+
+\AddToShipoutPicture{\BackgroundLogos}
+
+
+
+\hypertarget{API}{\noindent\textbf{API \emph{Application Programming Interface}} interface numérique, permet de donner l'accès à un service.}
+
+\bigskip
+
+\hypertarget{Librairie}{\noindent\textbf{Librairie} ensemble de fonctions qui peuvent êtres appelées via une API et permettent d'exécuter des tâches précises, plus ou moins complexes.}
+
+\bigskip
+
+\hypertarget{IT}{\noindent\textbf{IT \emph{Information Technology}} désigne le champ des technologies de  l'informatique en général}
+
+\bigskip
+
+\hypertarget{IDE}{\noindent\textbf{IDE \emph{Integrated Development Environment}} logiciel offrant les outils nécessaires à l'édition de code informatique, de l'édition au tests à la compilation etc...}
+
+\bigskip
+
+FRAMEWORK:
+
+\bigskip
+
+\hypertarget{CLI}{\noindent\textbf{CLI} Interface en lignes de commandes, interface du programme permettant une interaction dans un terminal de commandes, donne des informations sur le programme et permet son exécution avec les paramètres donnés. }
+
+\bigskip
+
+\hypertarget{CI}{\noindent\textbf{CI \emph{Continuous Integration}}}
+
+\bigskip
+
+\hypertarget{CD}{\noindent\textbf{CD \emph{Continuous Delivery}}} 
+
+\bigskip
+
+\hypertarget{IoT}{\noindent\textbf{IoT \emph{Internet of Things}}} 
+
+\bigskip
+
+\hypertarget{IO}{\noindent\textbf{I/O \emph{Input/Output}} entrées et sorties}
+
+\bigskip
+
+\hypertarget{VEE}{\noindent\textbf{VEE \emph{Virtual Execution Environment}} }
+
+
+\chapter{Introduction}
+
+Microej est une entreprise qui propose des solutions pour  l’exécution d’applications java sur des cartes électroniques, en particulier dans les systèmes embarqués.Cette exécution se fait via leur plateforme : le VEE MicroEJ.
+
+L'embarqué nécessite d’utiliser des librairies allégés sur le VEE MicroEJ, de ce fait toutes les librairies java ne sont pas toujours disponibles. Lorsqu’un client a pour projet de porter une application java sur l’environnement d’exécution Microej il faut déterminer la liste des librairies qui devront être portées vers l’environnement Microej afin de prédire les temps et coûts de développement.
+
+L’outil utilisé et développé en interne s’appelle le ‘dependency discoverer’. Celui-ci nécessite cependant une mise à jour pour trois raisons qui constituent la base de mon sujet de stage:
+
+\begin{enumerate}
+\item  La majorité du code était en closed source. La politique de l’entreprise a changé et tous les outils publics doivent passer en open source si possible .
+\item Le Dependency Discoverer n’est compatible que jusqu’à la version 7 de java, ce qui ne couvre pas plus de 7\%\footnote{\href{https://www.jrebel.com/blog/2020-java-technology-report}{2020 Java Technology Report}} des nouveaux programmes java. Il est donc nécessaire d’améliorer sa compatibilité. 
+\item  Le programme ne peut être exécuté qu’en récupérant du code java dans un IDE dérivé d’éclipse, ce qui est un inconvénient en particulier pour les personnes extérieures à l’entreprise. Il faut donc compiler le programme dans un exécutable unique avec lequel on puisse interagir via une console.
+\end{enumerate}
+
+Pour réaliser ces tâches j’ai du réunir le open et close source puis modifier le code afin d’intégrer une nouvelle librairie d’analyse de code open source et compatible java 8+. Enfin je devais rajouter une \hyperlink{CLI}{CLI} en me basant sur une autre librairie open source.
+Tous ce travail devait être réalisé en respectant le workflow de l’entreprise, et en utilisant tout les outils permettant d’assurer une qualité maximale du code avant de le partager publiquement.
+
+Le management chez Microej repose sur un développement incrémentiel par tâches. De ce fait, ce rapport sera articulé autour de celles-ci . Je présenterais d’abord l’entreprise, puis les différents outils de gestion de projets et de développement utilisés. Ensuite les différentes étapes de la réalisation de mon sujet de stage. Pour finir mes réflexions et conclusions sur cette expérience. 
+
+\chapter{MicroEJ}
+
+Mon stage s’est déroulé au sein de l’entreprise MicroEJ 
+
+\bigskip
+
+\noindent
+\begin{minipage}[c]{0.5\textwidth}
+\centering
+\includegraphics[width=0.8\linewidth]{ressources/logos/vertical_mascot_huge.png}
+\end{minipage}
+\noindent
+\begin{minipage}[c]{0.49\textwidth}\raggedright
+ FRANCE Headquarters\\
+ MicroEJ S.A.\\
+ 11 rue du Chemin Rouge, Bât. D\\
+ CS 27343,\\
+ 44373 NANTES Cedex 3, FRANCE\\
+ 3+3 (0)2 85 52 45 50\\
+\end{minipage}
+
+\bigskip
+
+MicroEJ est un éditeur de logiciel pour électronique embarqué et objets connectés. Son objectif est de proposer des applications pouvant répondre aux besoins de haute performance,de taille réduite et d'efficacité énergétique liés à ces domaines.
+
+MicroEJ travaille avec plus de 120 entreprises dans le monde avec plus de 50 million de produits, dans de nombreux domaines tels que : la domotique, les wearables , la santé, les télécommunications, le transport, etc...
+
+L’origine de l’entreprise remonte à 2012 lorsque le fondateur et actuel PDG de MicroEJ, Fred Rivard ainsi que l’équipe principale on décider de développer une plateforme d’exécution unique suivant la standardisation d’Android mais orienté vers les l'embarqué et les objet connectés. Le défi à relever était de taille car il nécessitait de créer un environnement virtuel 1000 fois plus petit qu’Android afin d’être exécute sur de l’électronique limité pour une meilleur efficacité (puissance, coût, etc.). Il aura fallu 4 ans pour enfin atteindre cet objectif et ouvrir de nouvelles possibilités pour l’IoT. 
+L'environnement a évolué et est maintenant capable de multi-sandboxing, c'est-à-dire d’exécuter plusieurs applications de façon complètement isolé les une des autres.
+
+
+L’entreprise à ensuite développé un IDE basé sur eclipse afin de pouvoir créer des programmes destinée à une exécution dans le VEE Microej et de les tester dans une simulation pour une grande variété de cartes électroniques. Ce qui a permit une expansion de la plateforme MicroEJ sans limites à travers le monde.
+
+Enfin, MicroEJ a développé la possibilité de charger dynamiquement des applications dans Microej VEE, créant un équivalent à l'app store d'android pour l'IoT. 
+
+\chapter{Newcomers}
+
+La première étape de mon stage a consisté à la prise en main des différents outils utilisés par microEJ.  
+
+\section{Materiel} 
+
+Un ordinateur portable m’a été confié sur lequel je possédais les droits d’administrateurs, chaque projet de l’entreprise pouvant nécessiter d’installer des programmes différents. La confiance est donc préféré pour proposer de meilleurs conditions de travail.
+
+\section{Sécurité}
+
+MicroEJ évolue dans le domaine de L'IoT ou de grandes masses d'informations personnelles sont générées puis circulent sur des réseaux privés ou public. Assurer la confidentialité et la sécurité sont donc une priorité. Cela commence au sein de l'entreprise où ces composantes sont assurées par deux mécanismes : prévenir des fuites internes et se défendre des attaques extérieures.
+
+\subsection{Confidentialité}
+
+Pour cela toutes les informations, avant de potentielement être divulgées au public, ne sont d'abord disponible uniquement sur le réseau interne à MicroEJ. Ce réseaux est accessible grâce à un premier niveau d'identification. Pour accéder aux services et données de production il faut alors passer par un second mot de passe pour lequel les exigences de sécurité sont très strictes.
+
+
+\subsection{Accréditations}
+
+Excepté pour le mot de passe de session pc, tous les autres mot de passe doivent êtres générés et enregistré dans une base de donnée de mots de passe. L’avantage d’une base de donnée de mot de passe est la possibilité d’avoir un mot de passe unique et résistant aux attaques par dictionnaire ou bruteforce pour chaque service. De plus ces mot de passes sont chiffrés, cela permet de faire des back-up de cette base dans un cloud et de pouvoir la partager en cas de problème. La seule faiblesse est alors le mot de passe de la base qui doit être retenu et être très solide.
+
+\subsection{Accès}
+
+L’accès au réseau interne de l’entreprise se fait par un VPN. Cette solution est plus légère et flexible que la connexion à une session distante mais implique une plus grande vigilence des employés sur leur pc. 
+
+Communication
+
+Les communications par mail étant externes au réseau local de l’entreprise, il est nécessaire de les chiffrer.  
+
+\section{Workflow}
+
+En informatique avoir un workflow efficace est sûrement autant, si ce n’est plus important que de produire du code. En effet, comme chaque personne aura un environnement de travail différent et parfois incompatible il est capital d’avoir des outils permettant un partage du code efficace. Le workflow de MicroEJ est un workflow CI/CD .
+
+\subsection{Git}
+
+Comme beaucoup d'entreprises de développement informatique, MicroEJ utilise Git pour la gestion du code. L'application des méthodes AGILE reposant sur l'utilisation de Git il est capital de maîtriser cet outil.
+
+Contrairement à beaucoup d'anciens outils dans lesquels un dépôt de code principal est central et où opérations de fusions de code sont rares et complexes , le fonctionnement de Git est basé sur une approche répartie construite autour de ces opérations de fusions. Les modifications de code peuvent donc être facilement fragmentées ce qui permet,comme le préconise la méthode AGILE, d'intégrer toutes les améliorations incrémentalement. 
+
+Le modèle utilisé est \href{https://nvie.com/posts/a-successful-git-branching-model/}{'a successful git branching model'}. Chaque branche dite 'feature' correspond à une tâche précise, de l'ajout d'une fonctionnalité à la correction d'un bug. Lorsque la modification est faite et fonctionnelle elle est ensuite ajoutée à une branche de développement . Lorsque la branche de développement a assez évolué on copie le code dans une branche de 'release' pour s'assurer du bon fonctionnement et faire des ajouts de dernières minutes. Le code est enfin envoyé sur une branche principale sous un tag représentant la version du programme distribué.
+Ce modèle permet donc d'appliqué un cycle CI/CD.
+
+\subsection{Youtrack}
+
+Youtrack permet de suivre l'avancement des différentes tâches en leur attribuant un ticket contenant toutes les informations les décrivant.
+Ces tickets sont ensuite reliés à Git via des githooks qui vont s'assurer que le code fait bien réference à une tâche Youtrack existante.
+%lors d’un commit un programme python va vérifier l’existance du ticket youtrack, cela permet de toujours pouvoir relier du code à un ticket.
+
+\subsection{Jenkins}
+
+Jenkins est une plateforme permettant une intégration continue (CI) . Le principe de l’intégration continue est que toute nouvelle version d’un programme doit être testé avant d’être posté. Il est difficile d' effectuer ces tests manuellement, dans les mêmes conditions et sans en oublier. La solution utilisée est un serveur qui va automatiquement charger le code modifié pour effectuer tout les tests nécessaires. La divisions par types de branches sur Git permet une synergie intéressante avec Jenkins. Des opérations différentes sont effectuées suivant le type de branche, effectuant des test de plus en plus complet au fur et à mesure que la branche se rapproche d'une publication. Il est aussi possible de lancer un build pour une branche personnelle et de s’assurer de la fonctionnalité du code tout au long du processus de développement.
+
+\subsection{Artifactory}
+
+Cette plateforme contient tout les fichiers binaires générés par Jenkins. Cela comprend les librairies MicroEJ .
+
+\subsection{EasyAnt}
+%Ivy ant plutôt ?
+L'integration continue nécessite aussi d'être descendante. Lorsqu'un programme est mis à jour, tous ceux l'ayant en dépendance et qui nécessite la dernière version devraient récupérer la nouvelle version.
+Le gestionnaire de dépendances utilisé est easy ant, Ant ivy. Uniquement en remplissant un fichier ant, le programme va automatiquement charger les fichiers binaires nécessaires ainsi que les dépendances ‘nested’. Cela permet de faciliter l’utilisation des framework MicroEJ. Il suffit de rajouter les lignes de dépendance sur la page de présentation du framework ou de la librairie pour pouvoir avoir toutes les librairies nécessaires. Les fichiers sont chargés depuis Artifactory.
+
+\section{Interactions internes}
+
+\subsection{WTC}
+
+La WTC est une réunion hebdomadaire permettant un partage de l’avancement de chaque projet en cours. Cela augmente la cohésions des équipes mais aussi de présenter les évolutions des outils internes qui peuvent potentiellement être utilisé par tous.
+
+\subsection{RocketChat}
+
+En particulier avec le confinement il est capital d’avoir un outils permettant des échanges écrits. L'entreprise utilise Rocketchat. Ce programme offre deux services : des salons qui permettent des échanges entre des groupes de personnes autour d'un sujet précis et des conversations privées.
+
+Le chat est hébergé dans le réseau de l’entreprise, il est donc nécessaire de se connecter avec le VPN pour y accéder. Le contenu des messages est considéré comme privé par défaut.
+Ce chat est très utile car il permet, de communiquer des informations liées :
+
+\begin{itemize}
+\setcounter{enumi}{-1}
+\item aux ressources humaines
+\item aux projets en cours
+\item aux problèmes rencontrés
+\end{itemize}
+
+En effet, la résolution de problème passe par le chat et l'appel aux compétences des autres informaticiens de l’entreprise. Chaque projet pouvant présenter des problèmes particuliers suivant les capacités et versions des plateformes utilisées il serait trop long de tous les répertoriés. Il serait par contre dommage de perdre du temps en n’utilisant pas les connaissances accumulées dans l’entreprise, d'où l'utilité du chat. 
+
+\subsection{IT support}
+
+Lorsqu’un problème est lié aux outils personnels tel que les sessions ou le matériel emprunté, une plateforme de support dédié GLPI permet de contacter ‘formellement’ par des tickets la personne chargée du support.
+
+\section{Interactions externes}
+\subsection{Docs public}
+
+Ce site héberge la documentation complète pour le développement d’application sur l’IDE microEJ SDK.
+
+\subsection{Forum dev}
+
+Ce forum public permet des échanges entre les développeurs utilisant la plateform microEJ et les développeur chez microEJ. Ce forum a aussi un rôle de guide développeur secondaire. Il permet de poser des questions techniques aux personnes travaillant dans des ‘setups’ similaires et ayant beaucoup plus de chance d’avoir déjà rencontré le problème et de connaître sa solution.
+
+\subsection{Github Microej}
+
+Ce github public contient des exemples d’applications sur la MicroEJ VEE.
+
+\section{Simple application with GUI}
+
+Une partie importante de la procédure newcomers est la création d'une application graphique en utilisant les ressources et l'IDE MicroEJ comme un développeur externe le ferait. 
+J'ai décidé de créer une application qui afficherait la date, l'heure et la météo d'une ville sélectionnée. Cette application nécessitant plusieurs écrans et composantes, j'ai pu me familiariser avec le framework widget de MicroEJ permetant de construire ce genre d'interfaces.
+
+Because Programs are executed on limited hardware, most of the java base libraries have been re-coded by MicroEJ’s team to be lightweight. It implies that even if most java libraries have an equivalent in MicroEJ’s, these are not 1:1 equivalent. 
+MicroEJ programs are executed on electronics boards, there IDE, a fork of eclipse, includes everything needed to execute the programs on card boards simulations or directly on the board.
+
+\subsection{Horloge}
+
+La première étape était de se familiariser avec le framework d’applications de MicroEJ. Celui-ci permet de créer des applications pouvant être lancées/arrêter/chargées sur l’environement sandboxed de microej. 
+
+Ce framework contient un système de tâches pouvant être déclenchées à intervalles réguliers.
+Cela m’a aussi permit de me familiariser avec l’utilisation de polices autres que celle par défaut. La plateforme microej se voulant la plus légère possible, les polices doivent être ajoutées manuellement et si possible uniquement les caractères nécessaires. Dans mon cas j’ai pu utiliser pleinement cette fonctionnalité en ne chargeant que les chiffres et lettres nécessaires pour afficher la date. 
+
+\subsection{Météo}
+
+Le relevé météorologique était récuperé sur l’API en ligne \href{https://openweathermap.org/}{OpenWeatherMap}.Ce site propose une offre gratuite avec un maximum de 60 requêtes par minute ce qui est suffisant pour une démonstration. L’API est questionnée par une requête http GET. On peut donc générer une chaîne de caractères à envoyer simplement en java. La réponse est une chaîne de caractères dans plusieurs formats possibles (xml,json…).Dans mon cas j’ai utilisé le résultat en json car une librairie MicroEJ traitant le format json existait déjà. 
+Une fois les informations météorologiques récupérées j’ai pu passer à l’affichage. L’affichage de la méteo m’a permit de me familiariser avec l’utilisation d’image dans les applications microej. 
+
+\subsection{Menu choix ville}
+
+Pour finir le programme il m’a fallu créer un écran permettant la sélection d’une ville, modifiant dynamiquement la timezone et la météo. Cela a nécessité de porter le programme vers une structure en widgets dans laquelle on puisse passer d’un widget/écran à l’autre puis interagir avec chaque écran.
+Le framework widget de MicroEJ permet de créer des widgets composées d’autres widgets. J'ai pu récupérer un widget clavier et l’intégrer au widget de sélection. 
+
+\chapter{Dependency Discoverer}
+
+\section{Présentation du sujet}
+
+Le produit principal de MicroEJ est le MICROEJ VEE . Comme on peut le voir illustré par \nameref{fig:VEE}, ce programme permet l’interface entre le kernel de la carte électronique et l’application en virtualisant un environnement commun quelle que soit la carte, reposant sur l’architecture virtuelle MEJ32. Afin de respecter les exigences matérielles, de nombreuses librairies java ont été recodées afin d’offrir la même API pour de meilleures performances. Les foundation libraries contiennent les librairies communes à tous les projets tandis que les add-on libraires doivent être importées lors du développement afin d’être intégrées au VEE lors de l’exécution sur carte.
+
+Lorsqu’un client veux porter une application existante il peut vouloir utiliser des librairies qui n’ont pas encore été recodées pour une utilisation dans la VEE MICROEJ. Dans ce cas il est important de déterminer rapidement quelles sont ces librairies et si un remplacement par des librairies existantes est possible. Sinon il faudra que ces librairies soit développées par MICROEJ ce qui aura un coût. Cette information est donc crucialle pour les futurs clients.
+ 
+Le dependency discoverer répond à ce besoin en listant automatiquement toutes les librairies dont le programme testé dépend et qui n’ont pas encore été portées pour le MICROEJ VEE. Pour plus de simplicité le programme est accessible directement par les clients. Cet outils nécessite cependant une refonte pour deux raisons principales :
+\begin{itemize}
+
+\item La librairie permettant l’analyse des programmes est bloquée à JAVA 7 induisant une obsolescence qui se fait déjà ressentir.
+
+\item La politique de MICROEJ étant plus ouverte à l’open source le dependency discoverer doit être passé totalement en open source là ou le programme d’analyse était en closed source.
+Cette refonte s’est faite en plusieurs étapes distinctes permettant d’atteindre ces objectifs.
+
+\end{itemize}
+
+\section{Passage à ASM }
+
+Le fonctionnement du dependency discoverer repose sur l'analyse des fichiers class contenant le programme compilé. L'ancienne version utilisait une librairie d'analyse interne à l'entreprise, limité à la version 7 de java. Maintenant que la majorité des programmes créés le sont dans une version supérieur ou égal à java 8 il est nécessaire  de changer de librairie. Dans le même temps et pour gagner du temps j'ai utilisé une librairie open source déjà existante : ASM.
+
+Pour effectuer le passage à ASM, j'ai dû comprendre l'intégration de l'ancienne librairie d'analyse afin de modifier tous les appels par son API pour les remplacer par des appels à l'API d'ASM. Cela a aussi nécessité de comprendre le patern visiteur sur lequel les deux librairies reposaient pour l'itération à travers le code. 
+
+Cette tâche a nécessité un travail de recherche sur internet et dans la documentation d’ASM ainsi que d’appliquer mes compétences en programmation afin de comprendre et modifier le code. \hyperlink{competences}{TC.2.4}.
+
+\section{Open source ready}
+
+Le dependency discoverer était originellement séparé en deux parties, une dont le code était accessible publiquement permettant d'utiliser le programme et une autre, compilée sous la forme d'un jar contenant l'outil d'analyse. La première partie de mon sujet était donc de réunir les deux parties du programme.
+
+Pour ce faire j'ai pris connaissance du code, en particulier du Framework faisant l'interface entre les deux parties. J'ai pu ensuite supprimer les classes et interfaces inutiles tout en vérifiant le bon fonctionnement avec les tests unitaires Junit déjà mis en place.
+
+\subsection{Junit}
+
+Junit est un framework de test de code utilisé sur l’IDE MicroEJ SDK. Les tests sont effectués autour du programme, ce qui signifie que tant que l’API du programme ou une partie du programme testé reste la même les tests sont toujours valides et permettent d’évaluer si un changement dans le code casse une fonctionnalité.
+
+\subsection{CLI}
+
+Originellement, l'utilisation du dependency discoverer nécessitait de charger le code source dans un IDE dérivé d'Eclipse et de l’exécuter dans cet IDE. Cette solution n'est pas pratique, en particulier pour un client externe à l'entreprise. Une CLI est bien plus adaptée.
+
+Interfacer un programme JAVA pour un appel par un interface en ligne de commande nécessite l’utilisation d’une librairie dédiée. Mon tuteur avait choisit picocli, une librairie très complète et avec une excellente documentation. Une classe permettant d’interfacer le programme existait déjà pour utiliser l’archive contenant le code close source.J’ai donc repris cette classe comme base. 
+
+L’implémentation de picocli était simple grâce à la documentation. Il fallait juste prendre le temps de choisir  des options pertinentes et avec des noms clairs pour l’utilisateur. L’outil génère automatiquement une page d’aide du programme accessible avec l’option ‘--help’. Cela permet de créer facilement une description customisée.
+
+\section{Code quality}
+
+Le code allant être posté publiquement il est d’autant plus nécessaire qu’il ne contienne aucun code smell car d’autres personnes vont y accéder et potentiellement essayer de l’améliorer. Pour les y aider le code doit être le plus lisible et propre possible . Cela permet aussi de promouvoir le sérieux de l’entreprise. 
+
+\subsection{Code smells}
+
+Pour supprimer les 'code smells' c'est-à-dire les lignes au comportement incertain ou pour lesquelles un remplacement plus efficace ou élégant existe, j'ai utilisé SonarLint.
+
+Sonarlint est une extension d’IDE qui permet de faire de l’analyse de code au vol. Cet outil renseigne sur tous types de problèmes : de codes pouvant provoquer une erreur à du code mal optimisé ou peut lisible avec une explication du problème ainsi que des exemples de corrections.
+L'IDE MicroEJ SDK contient SonarLint ainsi que les règles suivis par l'entreprise.
+
+\subsection{Null Analysis}
+
+Un autre angle d'amélioration du code est la null analysis qui consiste en la systématisation du traitement des variables nulles. On pourra donc prévenir les tentatives d'accès à des valeurs nulle qui ferait rentrer le programme en erreur. 
+
+Le mécanisme utilisé est un système d'annotations (@NonNull et @Nullable) à placer dans le code permettant à l'IDE de déterminer lorsqu'un accès invalide peut survenir. 
+
+La majorité des programmes conçus chez MicroEJ le sont sous la version 7 de java, les null analysis aussi. Le système d'annotation du programme pour effectuer la null analysis a cependant été modifiée à partir de la version 8 et a perdu toute rétro-compatibilité. Cette incompatibilité n'a été détectée par mon tuteur que lorsqu'il à voulu vérifier mon code avec sa configuration en java 7. Nous avons donc tous les deux fait des recherches et tests afin d'établir la liste des changements à opérer pour passer de la version 7 à la version 8. 
+Cela a permis de résoudre le problème pour d'autres projets sous java 8+.
+
+Après ça j'ai pu finir l'analyse en utilisant les fonctionnalités de la version 8, non sans difficultés. L’outil est en effet rarement utilisé et la documentation officielle est trop sommaire et ne couvre que certains cas généraux. Certaines annotations doivent être renseignées à part sur des fichiers particuliers et l'IDE pouvait parfois nécessiter d'être rechargée voir relancée pour mettre à jour les changements d'annotations dans l'IDE. Ces fichiers doivent être écrits dans un format unique, sans possibilité d'avoir une aide à la correction et peuvent ne pas fonctionner pour un espace en trop. J'ai donc utilisé un programme de test afin de créer ces fichier dans un environnement plus contrôlé.
+
+\subsection{Éxecutable Windows}
+
+Les programmes java nécéssitent d’être executés par une machine virtuelle java. Ce programme est lancé avec le dependency discoverer et va énormément ralentir le lancement. De plus utiliser le dependency discoverer nécessite d’avoir la machine virtuelle java d’installée. La solution la plus rapide et simple pour l’utilisateur est d’avoir un seul programme exécutable contenant tout le code nécessaire. Étant donné que la plupart des utilisateurs seront sur Windows je me suis concentré sur un exécutable pour cette plateforme.
+
+La documentation de picocli conseille l’utilisation de l’outil GraalVM pour la créations d’exécutable. Celui-ci assure la compatibilité avec picocli et la création d’un exécutable java indépendant en générant une VM allégée et adaptée au programme. 
+
+Utiliser GraalVm ne nécessite aucune modification dans le code. J’ai suivi la documentation officielle afin de générer l’exécutable. Celle-ci étant complète je n’ai rencontré aucun problème pour créer un premier exécutable permettant de faire une ‘proof of concept’.
+
+
+\section{Automatic build}
+
+\subsubsection{Build platform}
+
+\textit{Le but d’une build platform est d’automatiquement récupérer le code source d’un programme pour effectuer différentes opérations permettant de vérifier la qualité et fonctionnalité (si ça marche) du programme. Les plateforme de build sont à la base du “Continuous Integration (vérifier CD ou CI)“}
+
+\subsection{Proof of concept}
+
+Mon objectif était d'utiliser un service offrant la possibilité de tester le programme, générer un exécutable jar (pour une exécution sur toutes les plateformes via java) et exe (pour une exécution sur Windows sans JEE) et enfin poster ces executables sur Github. 
+
+Le code est hébergé sur un dépôt Github public, par conséquent il était nécessaire d’utiliser une plateforme de build externe, pour être exact Travis CI. Cette plateforme avait été repérée par mon tuteur pour de futur projets, nous avons donc profité de l'ouverture à l'open source du dependency discoverer pour tester si cette plateforme conviendrait à MicroEJ.
+
+Afin de généré automatique un exécutable Windows il est nécessaire d’utiliser Windows comme plateforme de build. Ce service est assez récent ce qui implique:
+
+\begin{itemize}
+
+ \item que toutes les options ne sont pas disponibles
+ \item que peu d’exemples existent
+ \item que la documentation n’est pas complète
+
+\end{itemize}
+
+Après de plus amples recherches j’ai trouvé un exemple d’utilisation de la plateforme pour créer un exécutable à partir d’un programme java. Cette base contenant toutes les instructions nécessaires pour l’installation des outils de builds. J’ai pu ensuite adapter les commandes que j’avais utilisé pour effectuer le build sur mon pc. 
+
+La dernière étape était l’envoi du résultat sur Github ; cela a nécessité beaucoup d'essais pour avoir un envois fonctionnel. Le plus gros problème à été la création de variables sécurisées. Toutes les informations requises au builds sont renseignées sur un fichier compris dans le projet Github, ce qui signifie qu’il est lui aussi ‘open source’. L’e-mail , le nom et le jeton d’envoi sont donc eux aussi disponibles publiquement... N’importe qui pourrait donc récupérer ce jeton pour modifier le code. La solution proposée par TravisCI est la possibilité de chiffrer ces informations qui seront déchiffrées mais cachées pendant le build. La solution la plus simple pour chiffrer des informations est d’utiliser le programme dédié, disponible pour les plateformes Linux. Étant sur Windows il m’a donc fallu mettre en place un environnement virtuel Linux.
+
+\subsubsection{Multi-plateform setup}
+
+\textit{Rares sont les programmes proposant des versions pour tous les systèmes d’exploitation majeurs . Il est donc parfois nécessaire d’utiliser plusieurs systèmes d’exploitations pour avoir accès à tout les programmes dont on a besoin.  Il est cependant impossible d’avoir 3 ou 4 machines différentes ou de devoir redémarrer son ordinateur plusieurs fois par jours pour changer d’OS. La solution : avoir un système d’exploitation duquel on pourra lancer les autres systèmes par virtualisation. Pour cela j’ai utilisé WSL.}
+
+\subsubsection{WSL}
+
+\textit{WSL est un environnement virtuel permettant de lancer un système Linux sur Windows avec un terminal pour seule interface. Cette solution est donc assez légère mais la propriété la plus intéressante est la possibilité pour le système Linux d’accéder au système de fichier Windows. Cela permet donc d’exécuter des programmes Linux directement dans le système Windows sans avoir à copier les fichiers dans l’environnement Linux.}\\
+
+J’ai utilisé une image Ubuntu, la distribution Linux la plus complète actuellement disponible.Une fois WSL mis en place j’ai pu générer les variables sécurisées.
+
+\subsection{Build automatique 2 : Junit}
+
+Après avoir démontré la faisabilité d’un build sur la plateforme TraviCI il m’a fallu créer le script final qui intégrerait les tests Junit. De cette façon n’importe qui reprenant le programme plus tard pourra modifier le code sans risquer de le poster et casser des fonctionnalités.
+
+Intégrer le test à été assez simple car de nombreux exemples de tests Junit sur la plateforme Ant existait. Seulement trois tests ont été nécessaires. Cependant le résultat du test était différent sur la plateforme de build et en local. Ce problème est assez commun pour les plateformes de builds, l’environnement étant différent de celui de développement. Il fallait donc trouver la différence de configuration et/ou de librairies.
+
+Après avoir tester plusieurs programmes et configurations de build sans modifier le résultat j’ai décidé de prendre le problème à l’envers.
+
+Je me suis en effet rendu compte en comparant des codes compilés avec l’outil de build et le microejSDK que la différence de résultat était provoquée par une différence de code dans les fichier compilés de test (tout le code était compilé différemment mais le fonctionnement est le même). Ayant réduit mes recherches à des classes de quelques lignes j’ai pu inférer les différences de configuration et résoudre ce problème.
+
+Je me suis donc intéressé au format .class correspondant aux classes compilées java. 
+Après comparaison j’ai identifié la différence : la présence de lignes de code utilisées lors d'une exécution en mode debug dans l’IDE. Après ajout de l’option activant cette fonction le build est passé .
+
+\subsection{Automatic build 3 : Github action ?}
+
+Les outils informatiques évoluent et contrairement aux produits ‘tangibles’ peuvent passer de gratuits à payants et inversement. Une formule classique des services informatiques est d’avoir une option gratuite mais limitée, permettant une utilisation pour des démonstrations, des projets amateurs ou des projets open sources. Un projet opensource se doit d’être free in freedom but also free in free . La dépendance à un service payant est un frein majeur à l’open source. Notre projet étant open source, une solution gratuite de ce type correspondrait et Travis CI la proposait jusqu’en 2018. La société a ensuite changé de politique après un rachat. La nouvelle formule gratuite est en réalité une solution payante pour laquelle chaque nouvel utilisateur a un certain nombre de crédits de base. Pour être exact 1000 crédits correspondant à 100 minutes d’utilisation de la plateforme. Soit environs 25 builds avec la version complète du build. Cela va donc plutôt à l’encontre de la démarche open source et risque de nécessiter de créer de nouveaux comptes si le projet grossit. L’objectif pour mon tuteur était que je créé une proof of concept de l’utilisation de Travis Ci pour tous leurs projets open-source. Ce genre de limitations risque donc de discrédité TravisCI.
+
+Après vérifications, un projet open source peut bénéficier d’un accès illimité dans le temps mais limité en temps de build par mois après demande auprès de la plateforme. Il ne serait donc pas impossible d’utiliser cette plateforme sous réserve de l’acceptation de ce régime de build.
+
+Dans le cas d’un refus, une autre solution serait d’utiliser une plateforme proposant une formule toujours gratuite comme Github action. Celle-ci a aussi l’avantage d’être intriquée à github . Elle est par contre moins aboutie et après recherche,risque de nécessiter un plus grand investissement en R\&D pour mettre au  point le build automatique et ce, sans assurance d’effectivement atteindre ce résultat.
+
+\section{Documentation}
+
+Le programme modifié, la documentation devait être mise à jour pour correspondre à la nouvelle interface et les nouvelles possibilités d’utilisation.
+
+\subsection{Javadoc}
+Cette documentation interne au programme est différente des commentaires qui donnent des informations sur des lignes de code. La javadoc est destinée aux variables et méthodes publiques, plus généralement, aux APIs. Cette documentation est donc destinée aux futurs développeurs voulant travailler autour de ces APIs sans avoir à lire le code.
+
+\subsection{README}
+
+La documentation est rédigée dans deux formats md et rst. Un tutoriel local chez Microej contient toutes les guidelines pour rédiger ces fichier.
+
+\section{Junit CLI}
+
+Au cours du développement la CLI a gagné en complexité et des tests unitaires devenaient nécessaires pour s’assurer que le comportement soit celui attendu. Ces tests portent uniquement sur les différentes combinaisons d’options possibles. 
+
+Les options sont passées en argument des programmes java via la méthode static main. Une fois cette méthode terminée le programme et la JVM quittent. On ne peut donc pas appeler cette fonction directement de Junit car à la sortie de la première méthode main, la suite de tests quittera au premier test avec la JVM. 
+L’implémentation de picocli m’a permit d’effectuer les tests. Celle-ci fonctionne comme suit : la méthode main appelle L’API picocli avec en argument une instance de la classe principale DependencyDiscovererCLI ainsi que les argument passés dans le main.
+Picocli va alors appeler la méthode run de l'objet DependencyDiscovererCLI avec les arguments du main, Le main est donc appelé sur l'interface picocli mais pas sur le dependency discoverer.
+En reproduisant cet appel sur run on peut donc reproduire l’appel du programme avec des arguments sans passer par la méthode main.
+Pour récupérer le résultat du traitement de la méthode run de la classe DependencyDiscovererCLI on transforme la classe pour enlever les variables static (même valeur pour tous les objet créer) afin d’avoir une complète indépendance des tests. On rajoute ensuite des méthodes pour récupérer les valeurs et les comparer aux valeurs attendues.
+
+Les tests on révélé des problèmes de conception, majoritairement des options rentrant en conflit ou n’ayant pas le comportement attendu. Parmi tous ces problèmes l'un m’a pris plus de temps à résoudre. Entre deux tests, il m’était impossible de supprimer les fichiers jar utilisés pour l’analyse. Ce problème est intéressant car il montre bien que produire du code qui respecte les règles proposés par SonarLint,  et pas juste fonctionnel, a un intérêt : 
+Lors de l'analyse les fichiers jar n'étaient pas refermés correctement. Lorsque le programme était lancé normalement ces fichiers restaient ouverts seulement le temps que le résultat soit retourné puis étaient fermés avec la JVM. Sauf que pour les tests, la JVM ne se coupe pas entre chaque test et on enchaîne les analyses : les jar restent donc ouverts jusqu’à la fin des tests. 
+La fermeture des fichiers après utilisation est une règle basique mais il peut parfois être compliqué de suivre le flow du programme et déterminer quand opérer cette fermeture.
+
+\section{Optimisations}
+L’optimisation est une étape particulière du développement d’un programme. Optimiser un programme revient souvent à le rendre moins lisible et surtout à limiter ses capacités pour qu’il n’effectue que les tâches nécessaires à son fonctionnement. Diagnostiquer des problèmes d’optimisation nécessite aussi des tests plus larges et en conditions réelles . D’un point de vue général celle-ci est donc effectuée en dernier. 
+Dans mon cas les premier test sur des projets récents ont révélé que le dependency discoverer était très lent et que le temps d’exécution augmentait rapidement, proportionnellement au nombre de dépendances. 
+
+J’ai mis en place un test d’analyse portant sur une partie du code du dependency discoverer comprenant plus de ‘50 VERIFIER LE NOMBRE’ dépendances. Ce test était beaucoup plus réaliste quoiqu'il ne reflétait pas encore des conditions similaires aux projets de grandes ampleur. Malgré tout, le nombre de dépendances était déjà assez important pour constater le problème : 25 secondes d’analyse. Soit jusqu’à plusieurs minutes pour un projet plus grand. Après vérification l’ancien programme renvoyait un temps d’exécution similaire : il allait donc falloir analyser tout le code car la lenteur n'avait pas été introduite avec un des changements que j'avais effectué. 
+
+\subsubsection{VisualVM}
+
+Pour diagnostiquer d’où venait cette lenteur j’ai utilisé l’outil VisualVM . celui ci est majoritairement utilisé afin d’analyser l’utilisation mémoire des programmes java pour trouver des fuites mémoire (j’avais d’ailleurs utilisé ce programme pour la première fois pour une analyse de la mémoire d’un programme java personnel). Il offre cependant aussi la possibilité de relever le temps passé dans chaque méthode d’un programme. J’ai donc généré un rapport pour le dependency discoverer :
+
+
+\subsection{Analyse}
+
+73.7 of the execution time was spend into the visit() method of the Java... class.
+
+73,7 \% du temps d’exécution est passé dans la méthode visit() de la classe JarJavaClassFinder. Il se trouve que cette fonction est dédiée à la lecture des fichier jars à analyser.La méthode va ouvrir les jars puis itérer au travers de leur contenu en appelant la méthode next(), présente sur le graphique et représentant 9,8 \% du temps d’exécution. Cette routine est appelé par la méthode find() , 16,5 \% du temps d’exécution. En cumulant le temps passé dans la méthode find() et toute les méthodes qu'elle appelle, on arrive à 100 \% du temps d’exécution à 10-1 près. La question est donc de savoir à quoi sert cette fonction et s'il est normale qu’elle soit si lente.
+
+Lorsqu’une classe est référencée dans du code analysé celle-ci est récupérée. Soit pour trouver d’autres dépendances par analyse récursive soit pour la rajouter directement comme dépendance. Si elle est déjà chargée en temps que nœud ASM elle est récupérée en local, sinon la méthode find() est appelée. Celle ci va alors parcourir et ouvrir tous les fichiers jar du against Classpath jusqu’à trouver la classe.
+
+Pour ce qui est de la justification du temps de traitement, il est de notoriété commune que les I/O et en particulier les I/O sur disque sont à éviter car très lentes. Il est aussi évident que parcourir l’entièreté des fichiers jar du dépôt microEJ revient à plusieurs centaines d’ouvertures de fichier jar et plusieurs milliers d’opérations de lecture. Dans ces conditions il est donc ‘normal’ que la méthode de recherche soit si lente.
+
+En résumé le seul moyen d’optimiser la recherche dans les jars était de ne pas rechercher dans les jars. La possibilité la plus simple étant de charger et analyser tous les jars au lancement du programme. Cette ‘solution’ implique cependant un temps de traitement irréductible pour toute recherche et une consommation mémoire conséquente. Heureusement il se trouve qu’un problème similaire avait déjà été rencontré dans un autre programme MicroEJ. La solution adoptée était une variable cache qui enregistrait la liste des entées de chaque jars. La variable est donc assez légère car elle ne contient qu’une liste de nom. Le nombre d’I/O est cependant beaucoup plus faible car une fois tout les jars chargés 1 fois il est possible de savoir exactement ou se trouve chaque classe. Récupérer une classe ne nécessitera donc plus qu’une ouverture et une lecture de jar.
+
+\subsection{Résultats de l’optimisation}
+
+Comme attendu les résultats après avoir implémenté ce système sont bien meilleurs.
+La majorité du temps est toujours passée dans la lecture de jars mais la durée globale n’est plus que de 5 secondes. De plus, avec le cache, l’augmentation sera beaucoup plus faible car même si le dépôt microej doublait de taille, après mise en cache, il n’y aurait toujours qu’une opération d’ouverture et de lecture du jar . On peut donc s’attendre à ce que le programme reste sous la minute d’exécution même dans des cas défavorables.  Le temps d’exécution est donc convenable.
+
+Ce problème a cependant montré qu'un aspect avait été négligé. Le programme gère bien les logs d’erreurs, mais aucune information n’est renvoyée pendant l’exécution, ce qui peut paraître anormale dépassé la dizaine de secondes d’exécution. Rajouter un indicateur de l’avancement pourrait donc être souhaitable afin d’éviter aux utilisateurs d’attendre sans indication sur l’état du programme.
+
+
+\chapter{Conclusion}
+
+J’ai pu appliquer mes compétences techniques en java mais aussi eee. J’ai appris à utiliser de nombreux outils d’assistance aux développement informatique mais aussi à coder différemment en prenant en compte l’interprétation du code par l'environnement virtuel java et la lisibilité pour d'autres développeurs.
+
+La formation Polytech m’a permis de gagner en compétences dans des domaines divers : de la chimie à l’informatique en passant par l’électronique. J’ai pu acquérir des connaissances techniques, en particulier dans le développement informatique.
+
+Ce stage m’a quand à lui apporté ce qui me manquait et dont j’avais le plus besoin pour compléter ma formation : un cadre et des méthodes pour appliquer mes compétences avec une rigueur suffisante pour assurer une utilisation par ‘n’importe qui’ et une maintenance par d’autre développeurs sans risqué de cassé le programme.
+
+\begin{appendices}
+    
+\chapter*{Images}
+\addcontentsline{toc}{chapter}{Images}
+
+\begin{figure}[h!]
+  \includegraphics{ressources/schemas/Implementations-on-hardware_minimize.png}
+  \caption{VEE}
+  \label{fig:VEE}
+\end{figure}
+
+\pagestyle{empty}
+\newpage
+
+
+\chapter*{Compétences}
+\addcontentsline{toc}{chapter}{Compétences}
+\label{competences}
+\newcolumntype{b}{>{\hsize=1.8\hsize}X}
+\newcolumntype{s}{>{\hsize=.2\hsize}X}
+
+\begin{tabularx}{\textwidth}{ | s | b | } 
+
+ \hline
+ \rowcolor{blue!40}
+ \multicolumn{2}{|>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X|}{TC1 - Gérer et conduire un projet de sa conception à sa réalisation selon ses dimensions techniques, économiques et humaines}\\
+  
+ \hline\hline
+ \rowcolor{blue!20}
+	\label{TC11}TC1.1. & en maîtrisant les bases du management opérationnel\\
+ \hline
+  \rowcolor{blue!20}
+TC1.2. & en étant apte à choisir et/ou mettre en œuvre des outils et des méthodes pour la réalisation du projet\\
+\hline
+ \rowcolor{blue!20}
+TC1.3. & en étant apte à mobiliser les ressources d'un champ scientifique et technique spécifique\\
+\hline
+ \rowcolor{blue!20}
+\hyperref[TC14]{TC1.4.} & en intégrant les aspects économiques et financiers du projet\\
+\hline
+ \rowcolor{blue!20}
+\hyperref[TC12]{TC1.5.} & en étant apte à évoluer dans un contexte de collaboration multi-acteurs\\
+\hline\hline
+\rowcolor{blue!40}
+\multicolumn{2}{|>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X|}{TC2 - Communiquer efficacement avec un public varié, et développer son projet professionnel}\\
+\hline\hline
+ \rowcolor{blue!20}
+ TC2.1. & en s'appropriant les clés d'une communication adaptée : 1. transmettre un message oral\\	
+\hline
+ \rowcolor{blue!20}
+ TC2.2. & en s'appropriant les clés d'une communication adaptée : 2. rédiger un écrit professionnel\\
+\hline
+ \rowcolor{blue!20}
+ TC2.3. & en opérant des choix professionnels et en mettant en place une stratégie adaptée pour atteindre ses objectifs et en développant une attitude assertive\\
+\hline
+ \rowcolor{blue!20}
+ \hyperref[TC24]{TC2.4.} & en évaluant et faisant évoluer ses compétences dans une dynamique apprenante\\
+\hline\hline
+ \rowcolor{blue!40}
+\multicolumn{2}{|>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X|}{TC3 - Mobiliser et développer les compétences en sciences humaines nécessaires à son intégration et au développement de son entreprise et de la société}\\
+\hline\hline
+ \rowcolor{blue!20}
+ TC3.1. & en s'intégrant dans l'entreprise et en exerçant le métier d'ingénieur\\	
+\hline
+ \rowcolor{blue!20}
+TC3.2. & en prenant en compte les enjeux industriels, économiques et professionnels\\
+\hline
+ \rowcolor{blue!20}
+TC3.3. & en travaillant en contexte pluriculturel et/ou international\\
+\hline
+ \rowcolor{blue!20}
+TC3.4. & en étant apte à prendre en compte les enjeux et les besoins de la société\\	
+\hline\hline
+ \rowcolor{blue!40}
+\multicolumn{2}{|>{\hsize=\dimexpr2\hsize+2\tabcolsep+\arrayrulewidth\relax}X|}{TC4 - Développer des activités contribuant à des innovations ou des avancées scientifiques}\\
+\hline\hline
+ \rowcolor{blue!20}
+TC4.1. & en situant son activité par rapport à l'état de l'art des connaissances et/ou des pratiques\\
+\hline
+ \rowcolor{blue!20}
+TC4.2. & en menant un travail de recherche fondamentale ou appliquée cohérent avec une analyse critique des résultats\\
+\hline
+ \rowcolor{blue!20}
+TC4.3. & en développant une démarche créative s'inscrivant dans un contexte d'innovation\\
+\hline
+ \rowcolor{blue!20}
+TC4.4. & en s'appuyant sur des techniques de management de l'innovation dans une démarche d'ouverture et d'entreprenariat\\
+\hline
+\end{tabularx}{}
+
+\end{appendices}
+   
+\end{document}

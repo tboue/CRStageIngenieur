@@ -1,0 +1,24 @@
+name: GitHub Actions Latex Build
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: cd ${{ github.workspace }}
+      - run: echo "installs"
+      - run: ls -a
+      - run: sudo apt-get install texlive-lang-french
+      - run: sudo apt-get install texlive-xetex
+      - run: xelatex rapport.tex
+      - run: xelatex rapport.tex
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            *.pdf
