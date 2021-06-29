@@ -163,7 +163,26 @@ BoldFont= *-Bold]
 
 \bigskip
 
-\hypertarget{VEE}{\noindent\textbf{VEE \emph{Virtual Execution Environment}} }
+\hypertarget{VEE}{\noindent\textbf{VEE \emph{Virtual Execution Environment}}}
+
+\hypertarget{Workflow}{\noindent\textbf{Workflow désigne l'ensemble des étapes suivies du début à la fin d'un processus de travail}}
+
+\chapter*{Résumé du stage}
+\addcontentsline{toc}{chapter}{Résumé du stage}
+
+MicroEJ Corp est une entreprise dont le produit principal est l'environnement d’exécution virtuel MicroEJ VEE qui permet l’exécution d'applications java sur des cartes électroniques embarquées. L'entreprise assure l'évolution et la maintenance de ce programme ainsi que de différents outils aidant le développement sur cet environnement.
+
+L'un de ces outils est le Dependency Discoverer qui permet de déterminer les possibles dépendances manquantes pour porter un programme java sur la plateforme MicroEJ VEE. Mon travail durant ce stage consistait à la refonte de cet outil afin de le rendre compatible avec les versions les plus récentes de java et de le rendre plus facilement utilisable, en particulier en rajoutant une interface en lignes de commandes. 
+
+Un autre aspect à été l'ouverture à l'open source du code. Étant le premier outils de l'entreprise dans ce cas mon sujet à été utilisé pour explorer 
+
+Ce travail dû être réalisé en respectant le workflow de l'entreprise.
+
+Ce stage m'a permis de développer mes compétences en programmation mais aussi d'exercé ma capacité de recherche et mon esprit critique. J'ai appris à utiliser de nombreux outils permettant la gestion de projets informatiques et ai acquis une compréhension approfondie du langage java.  
+
+\vspace*{\fill}
+
+5 mots clefs : Internet of things, recherches.
 
 \chapter*{Remerciements}
 \addcontentsline{toc}{chapter}{Remerciements}
@@ -248,7 +267,7 @@ Excepté pour le mot de passe de session pc, tous les autres mot de passe doiven
 
 \subsection{Accès}
 
-L’accès au réseau interne de l’entreprise se fait par un VPN. Cette solution est plus légère et flexible que la connexion à une session distante mais implique une plus grande vigilence des employés sur leur pc. 
+L’accès au réseau interne de l’entreprise se fait par un VPN. Cette solution est plus légère et flexible que la connexion à une session distante mais implique une plus grande vigilance des employés sur leur pc. 
 
 Communication
 
@@ -260,7 +279,7 @@ En informatique avoir un workflow efficace est sûrement autant, si ce n’est p
 
 \subsection{Git}
 
-Comme beaucoup d'entreprises de développement informatique, MicroEJ utilise Git pour la gestion du code. L'application des méthodes AGILE reposant sur l'utilisation de Git il est capital de maîtriser cet outil.
+Comme beaucoup d'entreprises de développement informatique, MicroEJ utilise \href{https://git-scm.com/}{Git} pour la gestion du code. L'application des méthodes AGILE reposant sur l'utilisation de Git il est capital de maîtriser cet outil.
 
 Contrairement à beaucoup d'anciens outils dans lesquels un dépôt de code principal est central et où opérations de fusions de code sont rares et complexes , le fonctionnement de Git est basé sur une approche répartie construite autour de ces opérations de fusions. Les modifications de code peuvent donc être facilement fragmentées ce qui permet,comme le préconise la méthode AGILE, d'intégrer toutes les améliorations incrémentalement. 
 
@@ -269,7 +288,7 @@ Ce modèle permet donc d'appliqué un cycle CI/CD.
 
 \subsection{Youtrack}
 
-Youtrack permet de suivre l'avancement des différentes tâches en leur attribuant un ticket contenant toutes les informations les décrivant.
+\href{https://www.jetbrains.com/youtrack/}{Youtrack} permet de suivre l'avancement des différentes tâches en leur attribuant un ticket contenant toutes les informations les décrivant.
 Ces tickets sont ensuite reliés à Git via des githooks qui vont s'assurer que le code fait bien réference à une tâche Youtrack existante.
 %lors d’un commit un programme python va vérifier l’existance du ticket youtrack, cela permet de toujours pouvoir relier du code à un ticket.
 
@@ -293,11 +312,11 @@ Le gestionnaire de dépendances utilisé est le MicroEJ Module Manager, basé su
 
 \subsection{WTM}
 
-La Weekly Tech Meeting est une réunion hebdomadaire permettant un partage de l’avancement de chaque projet en cours. Cela augmente la cohésions des équipes mais aussi de présenter les évolutions des outils internes qui peuvent potentiellement être utilisé par tous.
+La Weekly Tech Meeting est une réunion hebdomadaire permettant un partage de l’avancement de chaque projet en cours. Cela permet d'augmenter la cohésions des équipes et aussi de présenter les évolutions des outils internes qui peuvent potentiellement être utilisé par tous.
 
 \subsection{RocketChat}
 
-En particulier avec le confinement il est capital d’avoir un outils permettant des échanges écrits. L'entreprise utilise Rocketchat. Ce programme offre deux services : des salons qui permettent des échanges entre des groupes de personnes autour d'un sujet précis et des conversations privées.
+En particulier avec le confinement il est capital d’avoir un outils permettant des échanges écrits. L'entreprise utilise \href{https://rocket.chat/}{Rocketchat}. Ce programme offre deux services : des salons qui permettent des échanges entre des groupes de personnes autour d'un sujet précis et des conversations privées.
 
 Le chat est hébergé dans le réseau de l’entreprise, il est donc nécessaire de se connecter avec le VPN pour y accéder. Le contenu des messages est considéré comme privé par défaut.
 Ce chat est très utile car il permet, de communiquer des informations liées :
@@ -318,30 +337,30 @@ Lorsqu’un problème est lié aux outils personnels tel que les sessions ou le 
 \section{Interactions externes}
 \subsection{Site Principal}
 
-\href{Le site principal de MicroEJ}{https://www.microej.com/} sert de vitrines pour l'entreprise et ces produits. Il contient aussi les informations de contacts clients.
+\href{https://www.microej.com/}{Le site principal de MicroEJ} sert de vitrine pour l'entreprise et ses produits. Il contient aussi les informations de contacts clients.
 
 \subsection{Site développeur}
 
-\href{Ce site}{https://developer.microej.com/} contient de nombreux tutoriels allant de la mise en place d'un environnement de développement pour la VEE MicroEJ, à la création de ces applications et jusqu'à l'analyse des performances et l'optimisation du programme.
+\href{https://developer.microej.com/}{Ce site} contient de nombreux tutoriels allant de la mise en place d'un environnement de développement pour la VEE MicroEJ, à la création d'applications et jusqu'à l'analyse des performances et l'optimisation des programmes.
 
-\subsection{Docs public}
+\subsection{Documentation publique}
 
-\href{La documentation public}{https://docs.microej.com/en/latest/} contient les informations nécessaires pour le développement d’application sur l’IDE microEJ SDK.
+\href{https://docs.microej.com/en/latest/}{La documentation publique} contient les informations nécessaires pour le développement d’applications sur l’IDE MicroEJ SDK.
 
 \subsection{Forum dev}
 
-Ce forum public permet des échanges entre les développeurs utilisant la plateform MicroEJ et les développeur chez microEJ. Ce forum a aussi un rôle de guide développeur secondaire. Il permet de poser des questions techniques aux personnes travaillant dans des ‘setups’ similaires et ayant beaucoup plus de chance d’avoir déjà rencontré le problème et de connaître sa solution.
+Ce forum public permet des échanges entre les développeurs utilisant la plateform MicroEJ et les développeur chez MicroEJ. Ce forum a aussi un rôle de guide développeur secondaire. Il permet de poser des questions techniques aux personnes travaillant dans des ‘setups’ similaires et ayant beaucoup plus de chance d’avoir déjà rencontré le problème et de connaître sa solution.
 
 \subsection{Github MicroEJ}
 
-Ce Github public contient des exemples d’applications sur la MicroEJ VEE. Il contient aussi la documentation développer ce qui permet de la modifier simplement dès que l'on détecte un problème pendant son utilisation.
+Ce Github public contient des exemples d’applications sur la MicroEJ VEE. Il contient aussi la documentation développeur ce qui permet de la modifier simplement dès que l'on détecte un problème pendant son utilisation.
 
 \section{Simple application with GUI}
 
 Une partie importante de la procédure newcomers est la création d'une application graphique en utilisant les ressources et l'IDE MicroEJ comme un développeur externe le ferait. 
 J'ai décidé de créer une application qui afficherait la date, l'heure et la météo d'une ville sélectionnée. Cette application nécessitant plusieurs écrans et composantes, j'ai pu me familiariser avec le framework widget de MicroEJ permetant de construire ce genre d'interfaces.
 
-Pour le développement j'ai utilisé l'IDE MicroEJ SDK. Cet IDE basé sur Eclipse contient des outils permettant l’exécution d'applications MicroEJ Sur des cartes électroniques physiques ou simulées.
+Pour le développement j'ai utilisé l'IDE MicroEJ SDK. Cet IDE basé sur Eclipse contient des outils permettant l’exécution d'applications MicroEJ sur des cartes électroniques physiques ou simulées.
 
 \subsection{Horloge}
 
@@ -357,7 +376,7 @@ Une fois les informations météorologiques récupérées j’ai pu passer à l�
 
 \subsection{Icônes météo}
 
-J'ai créer des icônes permettant de représenté la météo 
+J'ai créé des icônes permettant de représenter la météo :
 
 \begin{center}
 \includegraphics[width=.5\textwidth]{./ressources/images/weathertogether.png}
@@ -365,7 +384,7 @@ J'ai créer des icônes permettant de représenté la météo
 
 Ces icônes sont ensuite assemblées pour rendre compte des différentes conditions météorologiques.
 
-L'écran principal était complété
+L'écran principal était complété :
 
 \begin{center}
 \includegraphics[width=.5\textwidth]{./ressources/schemas/inSituation.png}
@@ -382,7 +401,7 @@ Le framework widget de MicroEJ permet de créer des widgets composées d’autre
 
 \subsection{Finalisation}
 
-J'ai ensuite continué de faire retoucher ce projet en parallèle du dependency discoverer. Cela a compris l'ajout de variations de la couleur de fond de l'horloge en fonction de la position du soleil afin de rendre compte l'aube et du crépuscule. J'ai aussi rédigé un README qui présentait les fonctionnalités de l'application et les dépendances sur lesquelles elle repose.
+J'ai ensuite continué de retoucher ce projet en parallèle du dependency discoverer. Cela a compris l'ajout de variations de la couleur de fond de l'horloge en fonction de la position du soleil afin de rendre compte de l'aube et du crépuscule. J'ai aussi rédigé un README qui présentait les fonctionnalités de l'application et les dépendances sur lesquelles elle repose.
 
 \begin{center}
 \includegraphics[width=.5\textwidth]{./ressources/schemas/inSituationFin.png}
@@ -415,7 +434,7 @@ Cette refonte s’est faite en plusieurs étapes distinctes permettant d’attei
 
 \section{Passage à ASM }
 
-Le fonctionnement du dependency discoverer repose sur l'analyse des fichiers class contenant le programme compilé. 
+Le fonctionnement du dependency discoverer repose sur l'analyse des fichiers class qui contiennent le programme compilé. 
 
 \bigskip
 
@@ -447,13 +466,13 @@ public class TestASM {
 
 \end{lstlisting}
 
-C'est ce format qui est analysé par le dependency discoverer. On remarque qu'il manque des information dans l'affichage standard du fichier class avec javap, l'ajout du flag -v permet un \hyperref[javapVtestASM]{affichage complet}. Il contient même plus d'informations que dans le code non compilé comme la méthode d'initialisation qui est hérité de java/lang/Object.
+C'est ce format qui est analysé par le dependency discoverer. On remarque qu'il manque des informations dans l'affichage standard du fichier class avec javap, l'ajout du flag -v permet un \hyperref[javapVtestASM]{affichage complet}. Il contient même plus d'informations que dans le code non compilé comme la méthode d'initialisation qui est hérité de java/lang/Object.
 
 \bigskip
 
-L'ancienne version utilisait une librairie d'analyse interne à l'entreprise, limité à la version 7 de java. Maintenant que la majorité des programmes créés le sont dans une version supérieur ou égal à java 8 il est nécessaire  de changer de librairie.j'ai utilisé une librairie open source déjà existante : ASM. Cette librairie fiable permet l'analyse et l'édition de bytecode java et est utilisée par les compilateurs Gradle et Kotlin ainsi que par la JVM pour certaines opérations effectuées pendant l’exécution du code.
+L'ancienne version utilisait une librairie d'analyse interne à l'entreprise, limité à la version 7 de java. Maintenant que la majorité des programmes créés le sont dans une version supérieur ou égal à java 8 il est nécessaire  de changer de librairie.j'ai utilisé une librairie open source déjà existante : \href{https://asm.ow2.io/}{ASM}. Cette librairie fiable permet l'analyse et l'édition de bytecode java et est utilisée par les compilateurs Gradle et Kotlin ainsi que par la JVM pour certaines opérations effectuées pendant l’exécution du code.
 
-Pour effectuer le passage à ASM, j'ai dû comprendre l'intégration de l'ancienne librairie d'analyse afin de modifier tous les appels par son API pour les remplacer par des appels à l'API d'ASM. Cela a aussi nécessité de comprendre le design pattern visiteur sur lequel les deux librairies reposaient pour l'itération à travers le code. ASM charge les fichiers class dans une hiérarchie de nœuds dont la base sont des variable de type \textit{Classnode}. L'outil de debug d'Eclipse m'a permit de lire le contenu de ces variables et de me rendre compte de la complexité de la structure. (!!!screen dans images!!!)
+Pour effectuer le passage à ASM, j'ai dû comprendre l'intégration de l'ancienne librairie d'analyse afin de modifier tous les appels par son API pour les remplacer par des appels à l'API d'ASM. Cela a aussi nécessité de comprendre le design pattern visiteur sur lequel les deux librairies reposaient pour l'itération à travers le code. ASM charge les fichiers class dans une hiérarchie de nœuds dont la base est constituée de variables de type \textit{Classnode}. L'outil de debug d'Eclipse m'a permis de lire le contenu de ces variables et de me rendre compte de la \hyperref[ClassNode]{complexité de la structure}.
 
 \bigskip
 
@@ -461,14 +480,14 @@ Pour effectuer le passage à ASM, j'ai dû comprendre l'intégration de l'ancien
 
 \textit{Ce pattern de programmation répond au besoin d'analyser différemment une structure complexe de données sans avoir à réécrire une série de méthodes dédiées.}
 
-\textit{Pour cela on met en place un visitable et un visiteur. Le visitable contienne la structures de données et possèdent une méthode prenant en paramètre un visiteur; durant l’exécution de cette méthode, le visitable va itéré à travers toutes la structure de données et appelé, pour chaque donnée une méthode du visiteur permettant son traitement.}
+\textit{Pour cela on met en place un visitable et un visiteur. Le visitable contienne la structure de données et possède une méthode prenant en paramètre un visiteur; durant l’exécution de cette méthode, le visitable va itérer à travers toute la structure de données et appeler, pour chaque donnée, une méthode du visiteur permettant son traitement.}
 
-\textit{java permet l'override, une classe fille héritant d'un classe mère peut redéfinir le contenu d'une méthode. Une classe fille d'un visiteur peut donc être passé en paramètre du visitable correspondant et appliqué un traitement des données personnalisé.}
+\textit{Java permet l'override : une classe fille héritant d'une classe mère peut redéfinir le contenu d'une méthode. Une classe fille d'un visiteur peut donc être passée en paramètre du visitable correspondant et appliquer un traitement des données personnalisé.}
 
 
 \bigskip
 
-Pour l'analyse il faut lister les méthodes des Classnodes puis créer une classe qui hérite du visiteur de méthodes standard ASM pour effectuer une visite dans ces noeuds de méthode (seul le code référencé depuis des méthodes sera vraiment utilisé et nécessite une analyse). On peut ensuite réécrire le contenu de ces fonctions pour appeler nos propres fonctions. Dans mon cas j'ai appelé les méthodes existantes permettant de rajouter des dépendences.   
+Pour l'analyse il faut lister les méthodes des Classnodes puis créer une classe qui hérite du visiteur de méthodes standard ASM pour effectuer une visite dans ces nœuds de méthode (seul le code référencé depuis des méthodes sera vraiment utilisé et nécessite une analyse). On peut ensuite réécrire le contenu de ces fonctions pour appeler nos propres fonctions. Dans mon cas j'ai appelé les méthodes existantes permettant de rajouter des dépendances.   
 
 Cette tâche a nécessité un travail de recherche sur internet et dans la documentation d’ASM ainsi que d’appliquer mes compétences en programmation afin de comprendre et modifier le code. \hyperlink{competences}{TC.2.4}.
 
@@ -484,7 +503,7 @@ Junit est un framework de test de code utilisé sur l’IDE MicroEJ SDK. Les tes
 
 \subsection{CLI}
 
-Originellement, l'utilisation du dependency discoverer nécessitait de charger le code source dans une variation de l'IDE Eclipse et de l’exécuter dans cet IDE. Cette solution n'est pas pratique, en particulier pour un client externe à l'entreprise. Une \hyperref{CLI}{CLI} est bien plus adaptée.
+Originellement, l'utilisation du dependency discoverer nécessitait de charger le code source dans une variation de l'IDE Eclipse et de l’exécuter dans cet IDE. Cette solution n'est pas pratique, en particulier pour un client externe à l'entreprise. Une \hyperlink{CLI}{CLI} est bien plus adaptée.
 
 Interfacer un programme JAVA pour un appel par un interface en ligne de commande nécessite l’utilisation d’une librairie dédiée. Mon tuteur avait choisit picocli, une librairie très complète, avec une excellente documentation et déjà utilisée dans d'autres projets. Une classe permettant d’interfacer le programme existait déjà pour utiliser l’archive contenant le code close source.J’ai donc repris cette classe comme base. 
 
@@ -505,12 +524,12 @@ L'IDE MicroEJ SDK contient SonarLint ainsi que les règles suivis par l'entrepri
 
 Un autre angle d'amélioration du code est la null analysis qui consiste en la systématisation du traitement des variables nulles. On pourra donc prévenir les tentatives d'accès à des valeurs nulle qui ferait rentrer le programme en erreur. 
 
-Le mécanisme utilisé est un système d'annotations @NonNull et @Nullable) à placer dans le code permettant à l'IDE de déterminer lorsqu'un accès invalide peut survenir. On renseigne le fichier package-info.java dans chaque paquets java pour mettre @NonNull comme annotation par default :
+Le mécanisme utilisé est un système d'annotations (@NonNull et @Nullable) à placer dans le code permettant à l'IDE de déterminer lorsqu'un accès invalide peut survenir. On renseigne le fichier package-info.java dans chaque paquet java pour mettre @NonNull comme annotation par defaut :
 \begin{lstlisting}
 @org.eclipse.jdt.annotation.NonNullByDefault
 package packagename;
 \end{lstlisting}
-on peut ensuite rajouter l'annotation @Nullable quand on à besoin qu'une variable puisse passer dan l'état nulle, l'IDE va ensuite automatiquement prévenir des accès à cette variable avant instanciation.
+On peut ensuite rajouter l'annotation @Nullable quand on a besoin qu'une variable puisse passer dans l'état nul, l'IDE va ensuite automatiquement prévenir des accès à cette variable avant instanciation.
 
 \begin{center}
   \includegraphics[width=\textwidth]{ressources/images/nonnull.png}
@@ -522,9 +541,9 @@ Cela a permis de résoudre le problème pour d'autres projets sous java 8+.
 
 Après ça j'ai pu finir l'analyse en utilisant les fonctionnalités de la version 8, non sans difficultés. L’outil est en effet rarement utilisé et la documentation officielle est trop sommaire et ne couvre que certains cas généraux. Certaines annotations doivent être renseignées à part sur des fichiers particuliers et l'IDE pouvait parfois nécessiter d'être rechargée voir relancée pour mettre à jour les changements d'annotations dans l'IDE. Ces fichiers doivent être écrits dans un format unique, sans possibilité d'avoir une aide à la correction et peuvent ne pas fonctionner pour un espace en trop. J'ai donc utilisé un programme de test afin de créer ces fichier dans un environnement plus contrôlé.
 
-Un exemple est la méthode get de la classe HashMap. Cette classe fait partie des librairie java, elle ne peut donc pas être modifiée, les annotations doivent donc êtres externes. Cette méthode nécessite des annotations car par default NonNull est utilisé pour des librairie externes. Or cette méthode peut renvoyer null et ce même si toute les autres valeurs sont non null : La hashmap est similaire à un dictionnaire, même si le dictionannaire ne contient que des mots et définitions valides mais que le mot que l'on cherche n'y est pas présent on ne récupérera aucune définition.
+Pour exemple la méthode get de la classe HashMap. Cette classe fait partie des librairies java, elle ne peut donc pas être modifiée, les annotations doivent donc êtres externes. Cette méthode nécessite des annotations car par defaut @NonNull est utilisé pour des librairie externes. Or cette méthode peut renvoyer null et ce, même si toutes les autres valeurs sont non null : La hashmap est similaire à un dictionnaire, même si le dictionnaire ne contient que des mots et définitions valides mais que le mot que l'on cherche n'y est pas présent on ne récupérera aucune définition.
 
-Pour cette fonction on passe de l’entête :
+Pour la fonction suivant on passe de l’entête :
 \begin{lstlisting}
 public V get(Object key);
 \end{lstlisting}
@@ -538,6 +557,7 @@ get
  (L0java/lang/Object;)T0V;
 \end{verbatim}
 
+pour indiquer que les variables d'entrée et de sortie peuvent être nulle.
 
 \subsection{Éxecutable Windows}
 
@@ -571,10 +591,6 @@ Afin de généré automatique un exécutable Windows il est nécessaire d’util
 \end{itemize}
 
 Après de plus amples recherches j’ai trouvé un exemple d’utilisation de la plateforme pour créer un exécutable à partir d’un programme java. Cette base contenant toutes les instructions nécessaires pour l’installation des outils de builds. J’ai pu ensuite adapter les commandes que j’avais utilisé pour effectuer le build sur mon pc. 
-J'ai utiliser la Powershell Windows pour vérifier le bon fonctionnement de l’exécutable généré :
-\begin{center}
-  \includegraphics[width=\textwidth]{ressources/images/exePrime.png}
-\end{center}
 
 La dernière étape était l’envoi du résultat sur Github ; cela a nécessité beaucoup d'essais pour avoir un envois fonctionnel. Le plus gros problème a été la création de variables sécurisées. Toutes les informations requises au builds sont renseignées sur un fichier compris dans le projet Github, ce qui signifie qu’il est lui aussi ‘open source’. L’e-mail , le nom et le jeton d’envoi sont donc eux aussi disponibles publiquement... N’importe qui pourrait donc récupérer ce jeton pour modifier le code. La solution proposée par TravisCI est la possibilité de chiffrer ces informations qui seront déchiffrées mais cachées pendant le build. La solution la plus simple pour chiffrer des informations est d’utiliser le programme dédié, disponible pour les plateformes Linux. Étant sur Windows il m’a donc fallu mettre en place un environnement virtuel Linux.
 
@@ -586,13 +602,19 @@ La dernière étape était l’envoi du résultat sur Github ; cela a nécessit�
 
 \textit{WSL est un environnement virtuel permettant de lancer un système Linux sur Windows avec un terminal pour seule interface. Cette solution est donc assez légère mais la propriété la plus intéressante est la possibilité pour le système Linux d’accéder au système de fichier Windows. Cela permet donc d’exécuter des programmes Linux directement dans le système Windows sans avoir à copier les fichiers dans l’environnement Linux.}\\
 
-J’ai utilisé une image Ubuntu, la distribution Linux la plus complète actuellement disponible.Une fois WSL mis en place j’ai pu générer les variables sécurisées sur mon projet d'expérimentation. Après avoir vérifié la page release sur Github les fichier uploadé sont bien présents.
+J’ai utilisé une image Ubuntu, la distribution Linux la plus complète actuellement disponible.Une fois WSL mis en place j’ai pu générer les variables sécurisées sur mon projet d'expérimentation. Après avoir vérifié la page release sur Github les fichiers uploadé sont bien présents.
 
 \begin{center}
   \includegraphics[width=\textwidth]{ressources/images/github.png}
 \end{center}
 
-J'ai enfin créer une copie du projet du dependency discoverer sur un Github privé pour adapter le build.
+J'ai pu télécharger les fichiers et utiliser la Powershell Windows pour vérifier le bon fonctionnement de l’exécutable de mon projet test généré automatiquement:
+
+\begin{center}
+  \includegraphics[width=\textwidth]{ressources/images/exePrime.png}
+\end{center}
+
+J'ai enfin créé une copie du projet du dependency discoverer sur un Github privé pour adapter le build.
 
 \subsection{Build automatique 2 : Junit}
 
@@ -609,13 +631,11 @@ Après comparaison j’ai identifié la différence : la présence de lignes de 
 
 \subsection{Automatic build 3 : Évaluation des Github Actions}
 
-Les outils informatiques évoluent et contrairement aux produits ‘tangibles’ peuvent passer de gratuits à payants et inversement. Une formule classique des services informatiques est d’avoir une option gratuite mais limitée, permettant une utilisation pour des démonstrations, des projets amateurs ou des projets open sources. Un projet opensource se doit d’être free in freedom but also free in free . La dépendance à un service payant est un frein majeur à l’open source. Notre projet étant open source, une solution gratuite de ce type correspondrait et Travis CI la proposait jusqu’en 2018. La société a ensuite changé de politique après un rachat. La nouvelle formule gratuite est en réalité une solution payante pour laquelle chaque nouvel utilisateur a un certain nombre de crédits de base. Pour être exact 1000 crédits correspondant à 100 minutes d’utilisation de la plateforme. Soit environs 25 builds avec la version complète du build. Cela va donc plutôt à l’encontre de la démarche open source et risque de nécessiter de créer de nouveaux comptes si le projet grossit.
+Les outils informatiques évoluent et contrairement aux produits ‘tangibles’ peuvent passer de gratuits à payants et inversement. Une formule classique des services informatiques est d’avoir une option gratuite mais limitée, permettant une utilisation pour des démonstrations, des projets amateurs ou des projets open sources. Un projet opensource se doit d’être free in freedom but also free in free . La dépendance à un service payant est un frein majeur à l’open source. Notre projet étant open source, une solution gratuite de ce type correspondrait et Travis CI la proposait jusqu’en 2018. La société a ensuite changé de politique après un rachat. La nouvelle formule gratuite est en réalité une solution payante pour laquelle chaque nouvel utilisateur a un certain nombre de crédits de base. Pour être exact 1000 crédits correspondant à 100 minutes d’utilisation de la plateforme. Soit environs 25 builds avec la version complète du build. L'ancienne formule est toujours accessible pour les projets open source mais uniquement sous réserve de l'acceptation de la plateforme après présentation d'un dossier. Cela va donc plutôt à l’encontre de la démarche open source.
 
-Après vérifications, un projet open source peut bénéficier d’un accès illimité dans le temps mais limité en temps de build par mois après demande auprès de la plateforme. Il ne serait donc pas impossible d’utiliser cette plateforme gratuitement sous réserve de l’acceptation de ce régime de build.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-L’objectif pour mon tuteur était que je crée une proof of concept de l’utilisation de Travis Ci pour tous leurs projets open-source. Ce genre de limitations pousse donc à évaluer d'autres solutions.
+L’objectif pour mon tuteur était que je crée une proof of concept de l’utilisation de Travis CI pour tous leurs projets open-source. Ce genre de limitations pousse donc à évaluer d'autres solutions.
 
-Une autre solution serait d’utiliser une plateforme proposant une formule toujours gratuite comme Github action. Celle-ci a aussi l’avantage d’être intriquée à github . Elle est par contre moins aboutie et après recherche,risque de nécessiter un plus grand investissement en R\&D pour mettre au  point le build automatique et ce, sans assurance d’effectivement atteindre ce résultat.
+Une possibilité serait d’utiliser une plateforme proposant une formule toujours gratuite comme Github action. Celle-ci a aussi l’avantage d’être intriquée à Github . Elle est par contre moins aboutie et après recherche,risque de nécessiter un plus grand investissement en R\&D pour mettre au  point le build automatique et ce, sans assurance d’effectivement atteindre ce résultat.
 
 \section{Documentation}
 
@@ -696,14 +716,21 @@ Mon contact sur place était un enseignant-chercheur japonais, son niveau d’an
 Les codes du monde du travail Japonais sont très stricts, le respect de supérieur est absolue, il faut d'ailleurs utilisé une variation du honorifique language que même les natifs japonais peine à maitriser .
 Contrairement à la France très peu d'étrangers vivent au Japon. Toutes les personnes vivant là-bas rapporte que même après des dizains d’années et une maîtrise de la langue et de la culture ils restaient des étranger et subissait une certaine exclusion.
 
-Vivre en France peut d'ailleurs aussi être compliqué pour des étrangers. Durant m'a formation j'ai pu rencontrer différents étudiants étrangers qui on tous rencontré des problèmes. L'un était réfugié Syrien à du reprendre des études d'ingénieurs car son diplôme syrien n'était pas reconnu. Il à ensuite du apprendre le français seul et suivre le cursus sans aménagement.  
-Les avoir rencontré m'a permit de ...
+Vivre en France peut d'ailleurs aussi être compliqué pour des étrangers. Durant m'a formation j'ai pu rencontrer différents étudiants étrangers qui on tous rencontré des problèmes. L'un était réfugié Syrien et à du reprendre des études d'ingénieurs car son diplôme syrien n'était pas reconnu en France. Il a dû apprendre le français seul et suivre le cursus sans aménagements.
+Un autre n'avais pas encore effectué la démarche de naturalisation Française (étant d'origine Mongol il perdrait sa nationalité Mongole il serait donc beaucoup plus compliqué d'aller voir de la famille) et devait par conséquent renouveler un visa tout les ans. Cela lui imposait aussi un minimum d'argent d'avance, il a donc du travailler une partie de ces études pour respecté cette contrainte.
+Les avoir rencontré m'a permit de me rendre compte de l'isolement et des difficultés rencontrés en France.
 
 Conclusion : S’intégrer dans d'autres pays peut être très compliqué et il est nécessaire de se renseigné avant d'aller travailler à l'étranger. Cela comprend l'apprentissage de la langue mais aussi la culture. Cela peut décourager mais mon expérience m'a montré que partager les cultures permet une meilleurs ouverture d'esprit et de partager des connaissances et compétences ainsi que de mettre au point des projets communautaires à l'influence mondiale.
 
 \chapter{Conclusion}
 
-J’ai pu appliquer mes compétences techniques en java mais aussi eee. J’ai appris à utiliser de nombreux outils d’assistance aux développement informatique mais aussi à coder différemment en prenant en compte l’interprétation du code par l'environnement virtuel java et la lisibilité pour d'autres développeurs.
+
+
+J'ai d'abord développer une application afin de m'habituer à environnement de travail MicroEJ.
+
+J'ai 
+
+Pour ces différentes tâches j’ai appris à utiliser de nombreux outils d’assistance aux développement informatique mais aussi à coder différemment en prenant en compte l’interprétation du code par l'environnement virtuel java et la lisibilité pour d'autres développeurs.
 
 La formation Polytech m’a permis de gagner en compétences dans des domaines divers : de la chimie à l’informatique en passant par l’électronique. J’ai pu acquérir des connaissances techniques, en particulier dans le développement informatique.
 
@@ -714,7 +741,8 @@ Ce stage m’a quand à lui apporté ce qui me manquait pour compléter ma forma
 \chapter*{Codes}
 \addcontentsline{toc}{chapter}{Codes}
 
-\section{Retour javap -v testASM.class}
+\section*{Retour javap -v testASM.class}
+\addcontentsline{toc}{section}{\protect\numberline{}Retour javap -v testASM.class}
 \label{javapVtestASM}
 
 \begin{lstlisting}
@@ -766,13 +794,27 @@ Constant pool:
 }
 \end{lstlisting}
  
-\section{Fichier build ant}
+\section*{Fichier build ant}
+\addcontentsline{toc}{section}{\protect\numberline{}Fichier build ant}
 \label{antBuild}
 \lstinputlisting{ressources/code/build.xml}
     
 \chapter*{Images}
 \addcontentsline{toc}{chapter}{Images}
 
+\section*{ClassNode}
+
+Affichage du contenu d'une variable ClassNode avec l'outil d'Eclipse. Seules les lignes surlignées contiennent des informations à analyser. Toute la hiérarchie n'est pas visible.
+
+\addcontentsline{toc}{section}{\protect\numberline{}ClassNode}
+\label{ClassNode}
+
+\begin{center}
+ 	\includegraphics[trim=0in 10.01in 0in 0in, clip, width =\textwidth]{ressources/images/ClassNode.png}
+
+	\includegraphics[trim=0in 0in 0in 8.18in, clip,width =\textwidth]{ressources/images/ClassNode.png}
+
+\end{center}
 
 
 
