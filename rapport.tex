@@ -159,7 +159,7 @@ BoldFont= *-Bold]
 
 \bigskip
 
-\hypertarget{JVM}{\noindent\textbf{JVM \emph{Java Virtual Machine}} la machine virtuelle java permet l’exécution de programme compilés en bytecode sans avoir à prendre en compte la compatibilité de programme avec le matériel informatique }
+\hypertarget{JVM}{\noindent\textbf{JVM \emph{Java Virtual Machine}} la machine virtuelle Java permet l’exécution de programme compilés en bytecode sans avoir à prendre en compte la compatibilité de programme avec le matériel informatique }
 
 \bigskip
 
@@ -170,19 +170,17 @@ BoldFont= *-Bold]
 \chapter*{Résumé du stage}
 \addcontentsline{toc}{chapter}{Résumé du stage}
 
-MicroEJ Corp est une entreprise dont le produit principal est l'environnement d’exécution virtuel MicroEJ VEE qui permet l’exécution d'applications java sur des cartes électroniques embarquées. L'entreprise assure l'évolution et la maintenance de ce programme ainsi que de différents outils aidant le développement sur cet environnement.
+MicroEJ Corp est une entreprise dont le produit principal est l'environnement d’exécution virtuel MicroEJ VEE qui permet l’exécution d'applications Java sur des cartes électroniques embarquées. L'entreprise assure l'évolution et la maintenance de ce programme ainsi que celles de différents outils aidant le développement sur cet environnement.
 
-L'un de ces outils est le Dependency Discoverer qui permet de déterminer les possibles dépendances manquantes pour porter un programme java sur la plateforme MicroEJ VEE. Mon travail durant ce stage consistait à la refonte de cet outil afin de le rendre compatible avec les versions les plus récentes de java et de le rendre plus facilement utilisable, en particulier en rajoutant une interface en lignes de commandes. 
+L'un de ces outils est le Dependency Discoverer qui permet de déterminer les possibles dépendances manquantes pour porter un programme Java sur la plateforme MicroEJ VEE. Mon travail durant ce stage consistait à la refonte de cet outil afin de le rendre compatible avec les versions les plus récentes de Java et de le rendre plus facilement utilisable, en particulier en ajoutant une interface en lignes de commandes. 
 
-Un autre aspect à été l'ouverture à l'open source du code. Étant le premier outils de l'entreprise dans ce cas mon sujet à été utilisé pour explorer 
+Un autre aspect à été l'ouverture du code à l'open source . Le Dependency Discoverer étant le premier outil de l'entreprise dans ce cas, mon sujet à été utilisé comme terrain d'expérimentation. L'ensemble de mon travail à été réalisé en respectant le workflow de l'entreprise.
 
-Ce travail dû être réalisé en respectant le workflow de l'entreprise.
-
-Ce stage m'a permis de développer mes compétences en programmation mais aussi d'exercé ma capacité de recherche et mon esprit critique. J'ai appris à utiliser de nombreux outils permettant la gestion de projets informatiques et ai acquis une compréhension approfondie du langage java.  
+Ce stage m'a permis de développer mes compétences en programmation mais aussi d'exercer ma capacité de recherche et mon esprit d'analyse. J'ai appris à utiliser de nombreux outils permettant la gestion de projets informatiques et acquis une compréhension approfondie du langage java.  
 
 \vspace*{\fill}
 
-5 mots clefs : Internet of things, recherches.
+5 mots clefs : A REMPLIR.
 
 \chapter*{Remerciements}
 \addcontentsline{toc}{chapter}{Remerciements}
@@ -192,19 +190,19 @@ Je tiens à remercier l’ensemble du corps enseignant de polytech pour la passi
 
 \chapter{Introduction}
 
-MicroEJ Corp. est une entreprise qui propose des solutions pour  l’exécution d’applications java sur des cartes électroniques, en particulier dans les systèmes embarqués.Cette exécution se fait via leur plateforme : le VEE MicroEJ.
+MicroEJ Corp. est une entreprise qui propose des solutions pour  l’exécution d’applications Java sur des cartes électroniques, en particulier dans les systèmes embarqués.Cette exécution se fait via leur plateforme : le VEE MicroEJ.
 
-L'embarqué nécessite d’utiliser des librairies allégés sur le VEE MicroEJ, de ce fait toutes les librairies java ne sont pas toujours disponibles. Lorsqu’un client a pour projet de porter une application java sur l’environnement d’exécution MicroEJ il faut déterminer la liste des librairies qui devront être portées vers l’environnement MicroEJ afin de prédire les temps et coûts de développement.
+L'embarqué nécessite d’utiliser des librairies allégés sur le VEE MicroEJ, de ce fait toutes les librairies Java ne sont pas toujours disponibles. Lorsqu’un client a pour projet de porter une application Java sur l’environnement d’exécution MicroEJ il faut déterminer la liste des librairies qui devront être portées vers l’environnement MicroEJ afin de prédire les temps et coûts de développement.
 
 L’outil utilisé et développé en interne s’appelle le ‘dependency discoverer’. Celui-ci nécessite cependant une mise à jour pour trois raisons qui constituent la base de mon sujet de stage:
 
 \begin{enumerate}
 \item  La majorité du code était en closed source. La politique de l’entreprise a changé et tous les outils publics doivent passer en open source si possible .
-\item Le Dependency Discoverer n’est compatible que jusqu’à la version 7 de java, ce qui ne couvre pas plus de 7\%\footnote{\href{https://www.jrebel.com/blog/2020-java-technology-report}{2020 Java Technology Report}} des nouveaux programmes java. Il est donc nécessaire d’améliorer sa compatibilité. 
-\item  Le programme ne peut être exécuté qu’en récupérant du code java dans un IDE Eclipse, ce qui est un inconvénient en particulier pour les personnes extérieures à l’entreprise. Il faut donc compiler le programme dans un exécutable unique avec lequel on puisse interagir via une console.
+\item Le Dependency Discoverer n’est compatible que jusqu’à la version 7 de Java, ce qui ne couvre pas plus de 7\%\footnote{\href{https://www.jrebel.com/blog/2020-java-technology-report}{2020 Java Technology Report}} des nouveaux programmes java. Il est donc nécessaire d’améliorer sa compatibilité. 
+\item  Le programme ne peut être exécuté qu’en récupérant du code Java dans un IDE Eclipse, ce qui est un inconvénient en particulier pour les personnes extérieures à l’entreprise. Il faut donc compiler le programme dans un exécutable unique avec lequel on puisse interagir via une console.
 \end{enumerate}
 
-Pour réaliser ces tâches j’ai du réunir le open et close source puis modifier le code afin d’intégrer une nouvelle librairie d’analyse de code open source et compatible java 8+. Enfin je devais rajouter une \hyperlink{CLI}{CLI} en me basant sur une autre librairie open source.
+Pour réaliser ces tâches j’ai du réunir le open et close source puis modifier le code afin d’intégrer une nouvelle librairie d’analyse de code open source et compatible Java 8+. Enfin je devais rajouter une \hyperlink{CLI}{CLI} en me basant sur une autre librairie open source.
 Tous ce travail devait être réalisé en respectant le workflow de l’entreprise, et en utilisant tout les outils permettant d’assurer une qualité maximale du code avant de le partager publiquement.
 
 Le management chez Microej repose sur un développement incrémentiel par tâches. De ce fait, ce rapport sera articulé autour de celles-ci . Je présenterais d’abord l’entreprise, puis les différents outils de gestion de projets et de développement utilisés. Ensuite les différentes étapes de la réalisation de mon sujet de stage. Pour finir mes réflexions et conclusions sur cette expérience. 
@@ -418,7 +416,7 @@ Le produit principal de MicroEJ est le MicroEJ VEE :
   \includegraphics[width=.6\textwidth]{ressources/schemas/Implementations-on-hardware_minimize.png}
 \end{center}
 
- Comme on peut le voir illustré ci-dessus, ce programme permet l’interface entre le kernel de la carte électronique et les applications en virtualisant un environnement commun quelle que soit la carte, reposant sur l’architecture virtuelle MEJ32. Afin de respecter les exigences matérielles, de nombreuses librairies java ont été allégées afin d’offrir la même API pour de meilleures performances. Les foundation libraries contiennent les librairies communes à tous les projets tandis que les add-on libraires doivent être importées lors du développement afin d’être intégrées au VEE lors de l’exécution sur carte.
+ Comme on peut le voir illustré ci-dessus, ce programme permet l’interface entre le kernel de la carte électronique et les applications en virtualisant un environnement commun quelle que soit la carte, reposant sur l’architecture virtuelle MEJ32. Afin de respecter les exigences matérielles, de nombreuses librairies Java ont été allégées afin d’offrir la même API pour de meilleures performances. Les foundation libraries contiennent les librairies communes à tous les projets tandis que les add-on libraires doivent être importées lors du développement afin d’être intégrées au VEE lors de l’exécution sur carte.
 
 Lorsqu’un client veux porter une application existante il peut vouloir utiliser des librairies qui n’ont pas encore été recodées pour une utilisation dans la VEE MicroEJ. Dans ce cas il est important de déterminer rapidement quelles sont ces librairies et si un remplacement par des librairies existantes est possible. Sinon il faudra que ces librairies soit développées par MicroEJ ce qui aura un coût. Cette information est donc cruciale pour les futurs clients.
  
@@ -470,7 +468,7 @@ C'est ce format qui est analysé par le dependency discoverer. On remarque qu'il
 
 \bigskip
 
-L'ancienne version utilisait une librairie d'analyse interne à l'entreprise, limité à la version 7 de java. Maintenant que la majorité des programmes créés le sont dans une version supérieur ou égal à java 8 il est nécessaire  de changer de librairie.j'ai utilisé une librairie open source déjà existante : \href{https://asm.ow2.io/}{ASM}. Cette librairie fiable permet l'analyse et l'édition de bytecode java et est utilisée par les compilateurs Gradle et Kotlin ainsi que par la JVM pour certaines opérations effectuées pendant l’exécution du code.
+L'ancienne version utilisait une librairie d'analyse interne à l'entreprise, limité à la version 7 de java. Maintenant que la majorité des programmes créés le sont dans une version supérieur ou égal à Java 8 il est nécessaire  de changer de librairie.j'ai utilisé une librairie open source déjà existante : \href{https://asm.ow2.io/}{ASM}. Cette librairie fiable permet l'analyse et l'édition de bytecode Java et est utilisée par les compilateurs Gradle et Kotlin ainsi que par la JVM pour certaines opérations effectuées pendant l’exécution du code.
 
 Pour effectuer le passage à ASM, j'ai dû comprendre l'intégration de l'ancienne librairie d'analyse afin de modifier tous les appels par son API pour les remplacer par des appels à l'API d'ASM. Cela a aussi nécessité de comprendre le design pattern visiteur sur lequel les deux librairies reposaient pour l'itération à travers le code. ASM charge les fichiers class dans une hiérarchie de nœuds dont la base est constituée de variables de type \textit{Classnode}. L'outil de debug d'Eclipse m'a permis de lire le contenu de ces variables et de me rendre compte de la \hyperref[ClassNode]{complexité de la structure}.
 
@@ -524,7 +522,7 @@ L'IDE MicroEJ SDK contient SonarLint ainsi que les règles suivis par l'entrepri
 
 Un autre angle d'amélioration du code est la null analysis qui consiste en la systématisation du traitement des variables nulles. On pourra donc prévenir les tentatives d'accès à des valeurs nulle qui ferait rentrer le programme en erreur. 
 
-Le mécanisme utilisé est un système d'annotations (@NonNull et @Nullable) à placer dans le code permettant à l'IDE de déterminer lorsqu'un accès invalide peut survenir. On renseigne le fichier package-info.java dans chaque paquet java pour mettre @NonNull comme annotation par defaut :
+Le mécanisme utilisé est un système d'annotations (@NonNull et @Nullable) à placer dans le code permettant à l'IDE de déterminer lorsqu'un accès invalide peut survenir. On renseigne le fichier package-info.Java dans chaque paquet Java pour mettre @NonNull comme annotation par defaut :
 \begin{lstlisting}
 @org.eclipse.jdt.annotation.NonNullByDefault
 package packagename;
@@ -536,8 +534,8 @@ On peut ensuite rajouter l'annotation @Nullable quand on a besoin qu'une variabl
 \end{center}
 
 
-La majorité des programmes conçus chez MicroEJ le sont sous la version 7 de java, les null analysis aussi. Le système d'annotation du programme pour effectuer la null analysis a cependant été modifiée à partir de la version 8 et a perdu toute rétro-compatibilité. Cette incompatibilité n'a été détectée par mon tuteur que lorsqu'il à voulu vérifier mon code avec sa configuration en java 7. Nous avons donc tous les deux fait des recherches et tests afin d'établir la liste des changements à opérer pour passer de la version 7 à la version 8. 
-Cela a permis de résoudre le problème pour d'autres projets sous java 8+.
+La majorité des programmes conçus chez MicroEJ le sont sous la version 7 de java, les null analysis aussi. Le système d'annotation du programme pour effectuer la null analysis a cependant été modifiée à partir de la version 8 et a perdu toute rétro-compatibilité. Cette incompatibilité n'a été détectée par mon tuteur que lorsqu'il à voulu vérifier mon code avec sa configuration en Java 7. Nous avons donc tous les deux fait des recherches et tests afin d'établir la liste des changements à opérer pour passer de la version 7 à la version 8. 
+Cela a permis de résoudre le problème pour d'autres projets sous Java 8+.
 
 Après ça j'ai pu finir l'analyse en utilisant les fonctionnalités de la version 8, non sans difficultés. L’outil est en effet rarement utilisé et la documentation officielle est trop sommaire et ne couvre que certains cas généraux. Certaines annotations doivent être renseignées à part sur des fichiers particuliers et l'IDE pouvait parfois nécessiter d'être rechargée voir relancée pour mettre à jour les changements d'annotations dans l'IDE. Ces fichiers doivent être écrits dans un format unique, sans possibilité d'avoir une aide à la correction et peuvent ne pas fonctionner pour un espace en trop. J'ai donc utilisé un programme de test afin de créer ces fichier dans un environnement plus contrôlé.
 
@@ -561,9 +559,9 @@ pour indiquer que les variables d'entrée et de sortie peuvent être nulle.
 
 \subsection{Éxecutable Windows}
 
-Les programmes java nécéssitent d’être executés par une machine virtuelle java. Ce programme est lancé avec le dependency discoverer et va énormément ralentir le lancement. De plus utiliser le dependency discoverer nécessite d’avoir la machine virtuelle java d’installée. La solution la plus rapide et simple pour l’utilisateur est d’avoir un seul programme exécutable contenant tout le code nécessaire. Étant donné que la plupart des utilisateurs seront sur Windows je me suis concentré sur un exécutable pour cette plateforme.
+Les programmes Java nécéssitent d’être executés par une machine virtuelle java. Ce programme est lancé avec le dependency discoverer et va énormément ralentir le lancement. De plus utiliser le dependency discoverer nécessite d’avoir la machine virtuelle Java d’installée. La solution la plus rapide et simple pour l’utilisateur est d’avoir un seul programme exécutable contenant tout le code nécessaire. Étant donné que la plupart des utilisateurs seront sur Windows je me suis concentré sur un exécutable pour cette plateforme.
 
-La documentation de picocli conseille l’utilisation de l’outil GraalVM pour la créations d’exécutable. Celui-ci assure la compatibilité avec picocli et la création d’un exécutable java indépendant en générant une VM allégée et adaptée au programme. 
+La documentation de picocli conseille l’utilisation de l’outil GraalVM pour la créations d’exécutable. Celui-ci assure la compatibilité avec picocli et la création d’un exécutable Java indépendant en générant une VM allégée et adaptée au programme. 
 
 Utiliser GraalVm ne nécessite aucune modification dans le code. J’ai suivi la documentation officielle afin de générer l’exécutable. Celle-ci étant complète je n’ai rencontré aucun problème pour créer un premier exécutable permettant de faire une ‘proof of concept’.
 
@@ -652,7 +650,7 @@ La documentation est rédigée dans deux formats : md et rst. Un tutoriel local 
 
 Au cours du développement la CLI a gagné en complexité et des tests unitaires devenaient nécessaires pour s’assurer que le comportement soit celui attendu. Ces tests portent uniquement sur les différentes combinaisons d’options possibles. 
 
-Les options sont passées en argument des programmes java via la méthode static main. Une fois cette méthode terminée le programme et la JVM quittent. On ne peut donc pas appeler cette fonction directement de Junit car à la sortie de la première méthode main, la suite de tests quittera au premier test avec la JVM. 
+Les options sont passées en argument des programmes Java via la méthode static main. Une fois cette méthode terminée le programme et la JVM quittent. On ne peut donc pas appeler cette fonction directement de Junit car à la sortie de la première méthode main, la suite de tests quittera au premier test avec la JVM. 
 L’implémentation de picocli m’a permit d’effectuer les tests. Celle-ci fonctionne comme suit : la méthode main appelle L’API picocli avec en argument une instance de la classe principale DependencyDiscovererCLI ainsi que les argument passés dans le main.
 Picocli va alors appeler la méthode run de l'objet DependencyDiscovererCLI avec les arguments du main, Le main est donc appelé sur l'interface picocli mais pas sur le dependency discoverer.
 En reproduisant cet appel sur run on peut donc reproduire l’appel du programme avec des arguments sans passer par la méthode main.
@@ -670,7 +668,7 @@ J’ai mis en place un test d’analyse portant sur une partie du code du depend
 
 \subsubsection{VisualVM}
 
-Pour diagnostiquer d’où venait cette lenteur j’ai utilisé l’outil VisualVM . celui ci est majoritairement utilisé afin d’analyser l’utilisation mémoire des programmes java pour trouver des fuites mémoire (j’avais d’ailleurs utilisé ce programme pour la première fois pour une analyse de la mémoire d’un programme java personnel). Il offre cependant aussi la possibilité de relever le temps passé dans chaque méthode d’un programme. J’ai donc généré un rapport pour le dependency discoverer :
+Pour diagnostiquer d’où venait cette lenteur j’ai utilisé l’outil VisualVM . celui ci est majoritairement utilisé afin d’analyser l’utilisation mémoire des programmes Java pour trouver des fuites mémoire (j’avais d’ailleurs utilisé ce programme pour la première fois pour une analyse de la mémoire d’un programme Java personnel). Il offre cependant aussi la possibilité de relever le temps passé dans chaque méthode d’un programme. J’ai donc généré un rapport pour le dependency discoverer :
 
 
 \subsection{Analyse}
@@ -700,27 +698,25 @@ Ce problème a cependant montré qu'un aspect avait été négligé. Le programm
 
 \chapter{Etranger}
 
-Dans l’info\\
+
 Grâce à internet, l’informatique évolue mondialement car toute les ressources sont disponible partout dans le monde. Pour que les échange soit possible entre tous les pays  l’anglais s’est imposé comme langue commune. Cela s’explique par le grand nombre d’utilisateur de l’anglais mais je pense surtout sur la simplicité de la langue à l’écrit, pour l’informatique la plupart des langages sont basés sur l’anglais il y a donc une raison en plus de l’utiliser.
-Les méthodes sont aussi similaires, pour deux raisons :
--Les contraintes de développement informatique sont similaires quelque soit le domaine (web, appli ...)
--De très bon outils open source et maintenus par la communauté ont émergé et se sont imposés dans le monde.
-Je pondérerais avec des contre-exemple comme les chinois dont le niveau d’anglais est souvent trop bas pour que les échanges fluides. Ou les japonais qui communique souvent sur des sites inconnus hors du japons. 
-D’un point de vu générale, l’environnement mondial autour de l’IT est pour moins le meilleurs exemple d’une collaboration international fonctionnel.
+Les outils informatiques aussi sont communs pour deux raisons principales:
+-Les contraintes de développement informatique sont similaires quelque soit le domaine (web, logiciels ...)
+-De très bon outils open source maintenus par la communauté ont émergé et se sont imposés dans le monde.
+Je pondérerais avec des contre-exemple comme la Chine où le niveau d’anglais est souvent trop bas pour que les échanges fluides. Ou le Japon qui communique souvent sur des sites inconnus hors du japons. 
+D’un point de vu général, l’environnement mondial autour de l’IT est pour moi un très bon exemple d’une collaboration international fonctionnelle.\\
 
-Dans d’autres cas, deux salles deux ambiances\\
-Mon expérience dans l’informatique est très différente de ce qui peut se passé lorsqu’on veut étudier ou travailler dans un autre pays, dans ce cas connaître la langue et la culture devient parfait obligatoire. Pour mon semestre à l’étranger je comptais aller au Japon, la pandémie m’en a empêché mais j’avais cependant suivit toute les procédures d’inscription et même cherché un logement. Le japonais est un langage extrêmement éloigné des langues européennes , les symboles , la structure sont différente. L’anglais est donc très dur à apprendre pour les japonais et inversement apprendre le japonais est très compliqué pour un européen.  
-Mon contact sur place était un enseignant-chercheur japonais, son niveau d’anglais était donc suffisant pour que nous puissions communiquer, il m’a aidé pour mes démarches car une partie devait être réalisé sur place. J’ai cependant rencontrer de nombreuses difficultés car la plupart des ressources écrites étaient rédigées exclusivement en japonais. J’ai d’ailleurs dû traduire la liste de cours que j’avais choisit de suivre.Le formulaire de demande de visa était lui aussi en japonais, heureusement mon contact avait traduit les parties les plus compliquées.Enfin ma recherche de logement s'est faites complètement en japonais.
+Si les échanges avec d'autres pays sont simple sur internet, il est souvent nécessaire de connaître la langue et la culture d'un pays lorsqu'on veut se rendre sur place pour des études ou le travail. Pour la mobilité je comptais réaliser un semestre d'étude au Japon. La pandémie m’en a empêché mais j’avais cependant effectué toutes les procédures d’inscription et même trouvé un logement. Le japonais est un langage extrêmement éloigné des langues européennes , le système d’écriture et la structure des phrases sont différents. L’anglais est donc très difficile à apprendre pour les japonais et inversement apprendre le japonais est très complexe pour un européen. Mon contact sur place était un enseignant-chercheur japonais dont le niveau d’anglais était suffisant pour que nous puissions communiquer, il m’a aidé pour les démarches administratives qui devait être réalisé sur place. J’ai cependant rencontré des difficultés car la plupart des ressources écrites étaient rédigées exclusivement en japonais. J’ai par exemple dû traduire la liste de cours que j’avais choisit de suivre pour que Polytech puisse les valider .
 
-Étudier au japon est donc assez difficile mais pour ce qui est du travail et de l'objectif de s'y installer.
-Les codes du monde du travail Japonais sont très stricts, le respect de supérieur est absolue, il faut d'ailleurs utilisé une variation du honorifique language que même les natifs japonais peine à maitriser .
-Contrairement à la France très peu d'étrangers vivent au Japon. Toutes les personnes vivant là-bas rapporte que même après des dizains d’années et une maîtrise de la langue et de la culture ils restaient des étranger et subissait une certaine exclusion.
+Un séjour d'études au japon présente quelques difficultés mais reste envisageable sans une connaissance profonde du pays. Cela est différent si l'on a pour objectif de s'y installer.
+Les codes du monde du travail Japonais sont très stricts, le respect des supérieurs est absolue, il faut d'ailleurs utiliser une variation honorifique du langage que les natifs eux-même peinent à maîtriser .
+Contrairement à la France très peu d'étrangers vivent au Japon. Toutes les personnes vivant là-bas rapportent que même après des dizains d’années et une maîtrise de la langue et de la culture ils restent des étranger et subissent une certaine exclusion.\\
 
-Vivre en France peut d'ailleurs aussi être compliqué pour des étrangers. Durant m'a formation j'ai pu rencontrer différents étudiants étrangers qui on tous rencontré des problèmes. L'un était réfugié Syrien et à du reprendre des études d'ingénieurs car son diplôme syrien n'était pas reconnu en France. Il a dû apprendre le français seul et suivre le cursus sans aménagements.
-Un autre n'avais pas encore effectué la démarche de naturalisation Française (étant d'origine Mongol il perdrait sa nationalité Mongole il serait donc beaucoup plus compliqué d'aller voir de la famille) et devait par conséquent renouveler un visa tout les ans. Cela lui imposait aussi un minimum d'argent d'avance, il a donc du travailler une partie de ces études pour respecté cette contrainte.
-Les avoir rencontré m'a permit de me rendre compte de l'isolement et des difficultés rencontrés en France.
+Même si il y a beaucoup plus d'étrangers en France ils rencontrent aussi des difficultés. Durant ma formation j'ai rencontrer étudiants de différentes nationalités qui faisaient fasse à ces difficultés. L'un était réfugié Syrien et a du reprendre des études d'ingénieurs car son diplôme n'était pas reconnu en France. Il a dû apprendre le français seul et suivre le cursus sans aménagements.
+Un autre n'avais pas encore effectué la démarche de naturalisation Française pour ne pas perdre sa nationalité Mongole, rendant plus compliqué un retour en Mongolie pour voir sa famille. Il devait par conséquent renouveler un visa tout les ans ce qui imposait qu'il possède un minimum d'argent d'avance, il a donc du travailler une partie de ces études pour respecté cette contrainte.
+Les avoir rencontré m'a permit de me rendre compte de l'isolement et des difficultés rencontrés en France.\\
 
-Conclusion : S’intégrer dans d'autres pays peut être très compliqué et il est nécessaire de se renseigné avant d'aller travailler à l'étranger. Cela comprend l'apprentissage de la langue mais aussi la culture. Cela peut décourager mais mon expérience m'a montré que partager les cultures permet une meilleurs ouverture d'esprit et de partager des connaissances et compétences ainsi que de mettre au point des projets communautaires à l'influence mondiale.
+En conclusion, s’intégrer dans d'autres pays peut être très compliqué et il est nécessaire de se renseigné avant d'aller travailler à l'étranger. Cela comprend l'apprentissage de la langue mais aussi la culture. Cela peut décourager mais mon expérience m'a montré que partager les cultures permet une meilleurs ouverture d'esprit et de partager des connaissances et compétences ainsi que de mettre au point des projets communautaires à l'influence mondiale.
 
 \chapter{Conclusion}
 
@@ -728,13 +724,11 @@ Conclusion : S’intégrer dans d'autres pays peut être très compliqué et il 
 
 J'ai d'abord développer une application afin de m'habituer à environnement de travail MicroEJ.
 
-J'ai 
+Tout au long de mon stage j’ai appris à utiliser de nombreux outils d’assistance aux développement informatique, en particulier pour la gestion de projet et le travail collaboratif. J'ai aussi appris à coder en prenant en compte l’interprétation du code par l'environnement virtuel Java tout en assurant la lisibilité du code par d'autres développeurs.
 
-Pour ces différentes tâches j’ai appris à utiliser de nombreux outils d’assistance aux développement informatique mais aussi à coder différemment en prenant en compte l’interprétation du code par l'environnement virtuel java et la lisibilité pour d'autres développeurs.
+Mes 5 années de formation à Polytech m’ont permis de gagner en compétences dans des domaines divers : de la chimie à l’informatique en passant par l’électronique. J’ai pu acquérir des connaissances techniques, en particulier dans le développement informatique grâce auxquelles j'ai pu réalisé le sujet de mon stage.
 
-La formation Polytech m’a permis de gagner en compétences dans des domaines divers : de la chimie à l’informatique en passant par l’électronique. J’ai pu acquérir des connaissances techniques, en particulier dans le développement informatique.
-
-Ce stage m’a quand à lui apporté ce qui me manquait pour compléter ma formation : un cadre et des méthodes pour appliquer mes compétences avec une rigueur suffisante pour assurer une utilisation par ‘n’importe qui’ et une maintenance par d’autre développeurs sans risqué de casser le programme.
+Mon expérience au sein de MicroEJ m’a apporté un cadre et des méthodes pour appliquer mes compétences techniques avec une rigueur suffisante pour assurer une utilisation par ‘n’importe qui’ et une maintenance par d’autre développeurs sans risqué de casser le programme.
 
 \begin{appendices}
     
