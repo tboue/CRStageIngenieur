@@ -135,7 +135,7 @@ BoldFont= *-Bold]
 
 \bigskip
 
-\hypertarget{Framework{\noindent\textbf{Framework} } contient un ensembles fonctionnalitées générique qui peuvent ensuite être adaptées par le développeur. Contrairement à une librairie on ne fait pas appel à un framework, on construit le programme en l'utilisant comme base}
+\hypertarget{Framework{\noindent\textbf{Framework} contient un ensembles fonctionnalitées générique qui peuvent ensuite être adaptées par le développeur. Contrairement à une librairie on ne fait pas appel à un framework, on construit le programme en l'utilisant comme base}
 
 \bigskip
 
@@ -292,15 +292,15 @@ Ces tickets sont ensuite reliés à Git via des githooks qui vont s'assurer que 
 
 \subsection{Jenkins}
 
-Jenkins est une plateforme permettant une intégration continue (CI) . Le principe de l’intégration continue est que toute nouvelle version d’un programme doit être testé avant d’être posté. Il est difficile d' effectuer ces tests manuellement, dans les mêmes conditions et sans en oublier. La solution utilisée est un serveur qui va automatiquement charger le code modifié pour effectuer tout les tests nécessaires. La divisions par types de branches sur Git permet une synergie intéressante avec Jenkins. Des opérations différentes sont effectuées suivant le type de branche, effectuant des test de plus en plus complet au fur et à mesure que la branche se rapproche d'une publication. Il est aussi possible de lancer un build pour une branche personnelle et de s’assurer de la fonctionnalité du code tout au long du processus de développement.
+\href{https://www.jenkins.io/}{Jenkins} est une plateforme permettant une intégration continue (CI) . Le principe de l’intégration continue est que toute nouvelle version d’un programme doit être testé avant d’être posté. Il est difficile d' effectuer ces tests manuellement, dans les mêmes conditions et sans en oublier. La solution utilisée est un serveur qui va automatiquement charger le code modifié pour effectuer tout les tests nécessaires. La divisions par types de branches sur Git permet une synergie intéressante avec Jenkins. Des opérations différentes sont effectuées suivant le type de branche, effectuant des test de plus en plus complet au fur et à mesure que la branche se rapproche d'une publication. Il est aussi possible de lancer un build pour une branche personnelle et de s’assurer de la fonctionnalité du code tout au long du processus de développement.
 
 \subsection{Artifactory}
 
-Cette plateforme contient tout les fichiers binaires générés par Jenkins. Cela comprend les librairies MicroEJ .
+\href{https://www.jfrog.com/}{Cette plateforme} contient tout les fichiers binaires générés au sein de MicroEJ Corp, majoritairement par Jenkins, c'est donc ce dépôt qui assure la partie CD. On y trouve des binaires allant des librairies de la MicroEJ VEE jusqu'au images docker contenant les sites internes et externes de l'entreprise.
 
 \subsection{MicroEJ Module Manager}
 L’intégration continue nécessite aussi d'être descendante. Lorsqu'un programme est mis à jour, tous ceux l'ayant en dépendance et qui nécessite la dernière version devraient récupérer la nouvelle version.
-Le gestionnaire de dépendances utilisé est le MicroEJ Module Manager, basé sur EasyAnt et Ivy. Uniquement en remplissant un fichier ant, le programme va automatiquement charger les fichiers binaires nécessaires ainsi que les dépendances ‘nested’. Cela permet de faciliter l’utilisation des framework MicroEJ. Il suffit de rajouter les lignes de dépendance sur la page de présentation du framework ou de la librairie pour pouvoir avoir toutes les librairies nécessaires. Les fichiers sont chargés depuis Artifactory.
+Le gestionnaire de dépendances utilisé est le MicroEJ Module Manager, basé sur apache \href{https://ant.apache.org/}{Ant} et \href{https://ant.apache.org/ivy/}{Ivy}. Uniquement en remplissant un fichier ant, le programme va automatiquement charger les fichiers binaires nécessaires ainsi que les dépendances ‘nested’. Cela permet de faciliter l’utilisation des framework MicroEJ. Il suffit de rajouter les lignes de dépendance sur la page de présentation du framework ou de la librairie pour pouvoir avoir toutes les librairies nécessaires. Les fichiers sont chargés depuis Artifactory.
 
 \begin{center}
 \includegraphics[width=.8\textwidth]{./ressources/schemas/mmm_flow.png}
@@ -351,7 +351,7 @@ Ce forum public permet des échanges entre les développeurs utilisant la platef
 
 \subsection{Github MicroEJ}
 
-Ce Github public contient des exemples d’applications sur la MicroEJ VEE. Il contient aussi la documentation développeur ce qui permet de la modifier simplement dès que l'on détecte un problème pendant son utilisation.
+\href{https://github.com/MicroEJ}{Ce Github} public contient des exemples d’applications sur la MicroEJ VEE. Il contient aussi la documentation développeur ce qui permet de la modifier simplement dès que l'on détecte un problème pendant son utilisation.
 
 \section{Simple application with GUI}
 
@@ -503,7 +503,7 @@ Junit est un framework de test de code utilisé sur l’IDE MicroEJ SDK. Les tes
 
 Originellement, l'utilisation du dependency discoverer nécessitait de charger le code source dans une variation de l'IDE Eclipse et de l’exécuter dans cet IDE. Cette solution n'est pas pratique, en particulier pour un client externe à l'entreprise. Une \hyperlink{CLI}{CLI} est bien plus adaptée.
 
-Interfacer un programme JAVA pour un appel par un interface en ligne de commande nécessite l’utilisation d’une librairie dédiée. Mon tuteur avait choisit picocli, une librairie très complète, avec une excellente documentation et déjà utilisée dans d'autres projets. Une classe permettant d’interfacer le programme existait déjà pour utiliser l’archive contenant le code close source.J’ai donc repris cette classe comme base. 
+Interfacer un programme Java pour un appel par un interface en ligne de commande nécessite l’utilisation d’une librairie dédiée. Mon tuteur avait choisit \href{https://picocli.info/}{picocli}, une librairie très complète, avec une excellente documentation et déjà utilisée dans d'autres projets. Une classe permettant d’interfacer le programme existait déjà pour utiliser l’archive contenant le code close source.J’ai donc repris cette classe comme base. 
 
 L’implémentation de picocli était simple grâce à la documentation. Il fallait juste prendre le temps de choisir  des options pertinentes et avec des noms clairs pour l’utilisateur. L’outil génère automatiquement une page d’aide du programme accessible avec l’option ‘--help’. Cela permet de créer facilement une description customisée.
 
@@ -561,7 +561,7 @@ pour indiquer que les variables d'entrée et de sortie peuvent être nulle.
 
 Les programmes Java nécéssitent d’être executés par une machine virtuelle java. Ce programme est lancé avec le dependency discoverer et va énormément ralentir le lancement. De plus utiliser le dependency discoverer nécessite d’avoir la machine virtuelle Java d’installée. La solution la plus rapide et simple pour l’utilisateur est d’avoir un seul programme exécutable contenant tout le code nécessaire. Étant donné que la plupart des utilisateurs seront sur Windows je me suis concentré sur un exécutable pour cette plateforme.
 
-La documentation de picocli conseille l’utilisation de l’outil GraalVM pour la créations d’exécutable. Celui-ci assure la compatibilité avec picocli et la création d’un exécutable Java indépendant en générant une VM allégée et adaptée au programme. 
+La documentation de picocli conseille l’utilisation de l’outil \href{https://www.graalvm.org/}{GraalVM} pour la créations d’exécutable. Celui-ci assure la compatibilité avec picocli et la création d’un exécutable Java indépendant en générant une VM allégée et adaptée au programme. 
 
 Utiliser GraalVm ne nécessite aucune modification dans le code. J’ai suivi la documentation officielle afin de générer l’exécutable. Celle-ci étant complète je n’ai rencontré aucun problème pour créer un premier exécutable permettant de faire une ‘proof of concept’.
 
@@ -570,13 +570,13 @@ Utiliser GraalVm ne nécessite aucune modification dans le code. J’ai suivi la
 
 \subsubsection{Build platform}
 
-\textit{Le but d’une build platform est d’automatiquement récupérer le code source d’un programme pour effectuer différentes opérations permettant de vérifier la qualité et fonctionnalité (si ça marche) du programme. Les plateforme de build sont à la base du “Continuous Integration (vérifier CD ou CI)“}
+\textit{Le but d’une build platform est d’automatiquement récupérer le code source d’un programme pour effectuer différentes opérations permettant de vérifier la qualité et fonctionnalité (si ça marche) du programme. Les plateforme de build sont à la base de la CI}
 
 \subsection{Proof of concept}
 
 Mon objectif était d'utiliser un service offrant la possibilité de tester le programme, générer un exécutable jar (pour une exécution sur toutes les plateformes via java) et exe (pour une exécution sur Windows sans JEE) et enfin poster ces executables sur Github. 
 
-Le code est hébergé sur un dépôt Github public, par conséquent il était nécessaire d’utiliser une plateforme de build externe, pour être exact Travis CI. Cette plateforme avait été repérée par mon tuteur pour de futur projets, nous avons donc profité de l'ouverture à l'open source du dependency discoverer pour tester si cette plateforme conviendrait à MicroEJ.
+Le code est hébergé sur un dépôt Github public, par conséquent il était nécessaire d’utiliser une plateforme de build externe, pour être exact \href{https://travis-ci.com/}{Travis CI}. Cette plateforme avait été repérée par mon tuteur pour de futur projets, nous avons donc profité de l'ouverture à l'open source du dependency discoverer pour tester si cette plateforme conviendrait à MicroEJ.
 
 Afin de généré automatique un exécutable Windows il est nécessaire d’utiliser Windows comme plateforme de build. Ce service est assez récent ce qui implique:
 
@@ -668,7 +668,7 @@ J’ai mis en place un test d’analyse portant sur une partie du code du depend
 
 \subsubsection{VisualVM}
 
-Pour diagnostiquer d’où venait cette lenteur j’ai utilisé l’outil VisualVM . celui ci est majoritairement utilisé afin d’analyser l’utilisation mémoire des programmes Java pour trouver des fuites mémoire (j’avais d’ailleurs utilisé ce programme pour la première fois pour une analyse de la mémoire d’un programme Java personnel). Il offre cependant aussi la possibilité de relever le temps passé dans chaque méthode d’un programme. J’ai donc généré un rapport pour le dependency discoverer :
+Pour diagnostiquer d’où venait cette lenteur j’ai utilisé l’outil \href{https://visualvm.github.io/}{VisualVM} . celui ci est majoritairement utilisé afin d’analyser l’utilisation mémoire des programmes Java pour trouver des fuites mémoire (j’avais d’ailleurs utilisé ce programme pour la première fois pour une analyse de la mémoire d’un programme Java personnel). Il offre cependant aussi la possibilité de relever le temps passé dans chaque méthode d’un programme. J’ai donc généré un rapport pour le dependency discoverer :
 
 
 \subsection{Analyse}
@@ -719,8 +719,6 @@ Les avoir rencontré m'a permit de me rendre compte de l'isolement et des diffic
 En conclusion, s’intégrer dans d'autres pays peut être très compliqué et il est nécessaire de se renseigné avant d'aller travailler à l'étranger. Cela comprend l'apprentissage de la langue mais aussi la culture. Cela peut décourager mais mon expérience m'a montré que partager les cultures permet une meilleurs ouverture d'esprit et de partager des connaissances et compétences ainsi que de mettre au point des projets communautaires à l'influence mondiale.
 
 \chapter{Conclusion}
-
-
 
 J'ai d'abord développer une application afin de m'habituer à environnement de travail MicroEJ.
 
