@@ -509,6 +509,13 @@ Pour ce faire j'ai pris connaissance du code, en particulier du Framework faisan
 
 Junit est un framework de test de code utilisé sur l’IDE MicroEJ SDK. Les tests sont effectués autour du programme, ce qui signifie que tant que les API du programme ou d'une partie du programme testé restent les mêmes, les tests sont toujours valides et permettent d’évaluer si un changement dans le code casse une fonctionnalité.
 
+\begin{center}
+ 	\includegraphics[width =\textwidth]{ressources/images/junit.png}
+
+\end{center}
+
+on peut voir que certains tests ne passent pas, ils sont liés à l'analyse d'un cas particulier ou une dépendance n’apparaît que pendant l’exécution. S'assurer que le problème ne survienne jamais est donc impossible car le Dependency Discoverer effectue une analyse statique du code. Le test est donc laissé pour indiquer que le programme possède des exceptions.
+
 \subsection{CLI}
 
 Originellement, l'utilisation du Dependency Discoverer nécessitait de charger le code source dans une variation de l'IDE Eclipse et de l’exécuter dans cet IDE. Cette solution n'est pas pratique, en particulier pour un client externe à l'entreprise. Une \hyperlink{CLI}{CLI} est bien plus adaptée.
@@ -673,6 +680,57 @@ Pour récupérer le résultat du traitement de la méthode run de la classe Depe
 Les tests on révélé des problèmes de conception, majoritairement des options rentrant en conflit ou n’ayant pas le comportement attendu. Parmi tout ces problèmes l'un m’a pris plus de temps à résoudre. Entre deux tests, il m’était impossible de supprimer les fichiers jar utilisés pour l’analyse. Ce problème est intéressant car il montre que produire du code qui respecte les règles proposés par SonarLint,  et pas juste fonctionnel, a un intérêt : 
 Lors de l'analyse les fichiers jar n'étaient pas refermés correctement. Lorsque le programme était lancé normalement ces fichiers restaient ouverts seulement le temps que le résultat soit retourné puis étaient fermés avec la JVM. Sauf que pour les tests, la JVM ne se coupe pas entre chaque analyses : les jar restent donc ouverts jusqu’à la fin des tests. 
 La fermeture des fichiers après utilisation est une règle basique mais il peut parfois être compliqué de suivre le flow du programme et déterminer quand opérer cette fermeture.
+
+\section{Sortie JSON}
+
+Le programme pouvait retourner le résultat sous deux formats :
+
+\subsubsection{text}
+
+\begin{lstlisting}
+java/awt/Color
+java/awt/Coror.RED
+java/awt/Color.<init>(I)V
+\end{lstlisting}
+
+\subsubsection{XML}
+
+\begin{lstlisting}[language=xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<require>
+	<type name="java.awt.Color">
+	<field name="java.awt.Color.RED">
+	<method name="java.awt.Color.Color(int)void">
+</require>
+\end{lstlisting}
+
+
+
+J'ai rajouté la sortie au format JSON ainsi que les tests Junit nécessaires à la vérification du bon fonctionnement des méthodes d'écriture.
+
+\begin{lstlisting}
+{
+	"require":{
+		"type":[ 
+			{
+				"name":"java.awt.Color"
+			}
+		],
+		"field":[
+			{
+		 		"name"="java.awt.Color.RED"
+		 	}
+		 ],
+		"method":[
+			{
+				"name"="java.awt.Color.Color(int)void"
+			}
+		]
+	}
+}
+\end{lstlisting}
+
+Ce format peut être traité par de nombreuses librairies dans divers langages de programmation et permet de nombreuses possibilité d'intégration du Dependency Discoverer.
 
 \section{Optimisations}
 

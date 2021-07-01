@@ -12,7 +12,6 @@
 	<property name="ant.build.javac.source" value="1.8"/>
 	<property name="ant.build.javac.target" value="1.8"/>
 	
-	
   <property name="build.dir" value="./target~"></property>
 	<property name="main.build.dir" value="${build.dir}/bin"/>
   <property name="main.src.dir" value="src" />
@@ -24,8 +23,6 @@
   <property name="main.jar.build.dir" value="${build.dir}/executables"/>
   <property name="resources.dir" value="./resources"/>
 	
-	
-
   <path id="classpath.base">
 	 <pathelement location="lib/asm-9.1.jar"/>
      <pathelement location="lib/asm-tree-9.1.jar"/>
@@ -34,7 +31,6 @@
 	 <pathelement location="lib/external-annotations"/>
      <pathelement location="lib/org.eclipse.jdt.annotation_2.2.600.v20200408-1511.jar"/>
 </path>
-
 
  <path id="junit">
     <pathelement location="lib/junit-4.13.2.jar" />
@@ -140,5 +136,4 @@
   	 </jar>
     <echo message="Jar build done" />
   </target>
-
 </project>
