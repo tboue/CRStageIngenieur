@@ -165,6 +165,8 @@ BoldFont= *-Bold]
 
 \hypertarget{VEE}{\noindent\textbf{VEE \emph{Virtual Execution Environment}} programme qui se charge de l’exécution d'un autre programme dans un langage donné. Et ce, en offrant une interface avec différents environnements (Système d'exploitation, architecture processeur, etc...).Il peut aussi fournir d'autres services comme un debugger ou un ramasse-miette}
 
+\bigskip
+
 \hypertarget{Workflow}{\noindent\textbf{Workflow} désigne l'ensemble des étapes suivies du début à la fin d'un processus de travail}
 
 \chapter*{Résumé du stage}
@@ -642,7 +644,7 @@ Intégrer les tests a été assez simple car de nombreux exemples de tests Junit
 
 Après avoir testé plusieurs programmes et configurations de build sans modifier le résultat j’ai décidé de prendre le problème à l’envers.
 
-Je me suis en effet rendu compte en comparant des codes compilés avec l’outil de build et le microejSDK que la différence de résultat était provoquée par une différence de code dans les fichiers compilés de test (tout le code était compilé différemment mais le fonctionnement à l’exécution était le même). Ayant réduit mes recherches à des classes de quelques lignes j’ai pu inférer les différences de configuration et résoudre ce problème.
+Je me suis en effet rendu compte en comparant des codes compilés avec l’outil de build et le MicroEJ SDK que la différence de résultat était provoquée par une différence de code dans les fichiers compilés de test (tout le code était compilé différemment mais le fonctionnement à l’exécution était le même). Ayant réduit mes recherches à des classes de quelques lignes j’ai pu inférer les différences de configuration et résoudre ce problème.
 
 Je me suis donc intéressé au format .class correspondant aux classes compilées Java. 
 Après comparaison j’ai identifié la différence : la présence de lignes de code utilisées lors d'une exécution en mode debug dans l’IDE. Après ajout de l’option activant cette fonction le build est passé.
@@ -800,15 +802,14 @@ En conclusion, s’intégrer dans d'autres pays peut être très compliqué et i
 
 \chapter{Conclusion}
 
-Mon stage a commencé en suivant la formation des nouveaux arrivants.
-Celle-ci m'a permis de prendre en main les différents outils utilisés par l'entreprise en développant une application de mon choix. J'ai appris à utiliser des outils de gestion de projets informatiques tels que Git ou Jenkins, permettant d'appliquer des cycles d'intégration et déploiement continus.
+La formation des nouveaux arrivants m'a permis de prendre en main les différents outils utilisés par l'entreprise en développant une application de mon choix. J'ai appris à utiliser des outils de gestion de projets informatiques tels que Git ou Jenkins, permettant d'appliquer des cycles d'intégration et déploiement continus.
 Je me suis aussi familiarisé avec les différents moyens de communication qui permettent de garder des liens entre les employés.\\
 
 J'ai ensuite travaillé sur le Dependency Discoverer. J'ai effectué une refonte comprenant : une mise à jour de sa compatibilité, la possibilité d'une utilisation en ligne de commande et l'ajout d'options pour l’utilisateur. 
 
 Je me suis aussi occupé du passage du code en open source en deux phases. D'abord en modifiant le code pour qu'il respecte les standards de qualité exigés par l'entreprise. Ensuite, en mettant en place un cycle d'intégration complet automatisant les tests et la compilation du code dans un exécutable. 
 
-Ce travail à nécessité de nombreuses recherches pour adapter le cycle de production de l'entreprise à un projet open source nécessitant des outils externes.\\
+Ce travail a nécessité de nombreuses recherches pour adapter le cycle de production de l'entreprise à un projet open source nécessitant des outils externes.\\
 
 Pour finir j'ai créé différentes documentations autour du Dependency Discoverer. Celles destinées aux utilisateurs et celles destinées aux développeurs de MicroEJ, constituées de tutoriels compilant le travail de R\&D réalisé.\\
 
@@ -817,18 +818,27 @@ Tout au long de mon stage j’ai appris à utiliser de nouveaux outils d’assis
 Ce stage clôture mes 5 années de formation à Polytech durant lesquelles j'ai découvert les domaines de l'informatique et de l'électronique. 
 Mon expérience au sein de MicroEJ m’a apporté la maîtrise d'outils permettant d'appliquer mes compétences techniques avec une rigueur professionnelle. J'ai appris à créer des produits en visant une utilisation par le grand public.\\ 
 
-Mon expérience chez MicroEJ est une réussite. Tout d'abord, et malgré le travail en distanciel, je me suis senti complètement intégré à l'équipe. Surtout, le travail que j'ai réalisé va avoir un impact réel sur l'entreprise et ses clients. 
+Mon expérience chez MicroEJ est une réussite. Tout d'abord, et malgré le travail en distanciel, je me suis senti complètement intégré à l'équipe. Surtout, parce que le travail que j'ai réalisé va avoir un impact sur la durée pour l'entreprise et ses clients. Enfin, le passage en open source du Dependency Discoverer s'inscrit dans une démarche de collaboration et de partage que je supporte et veux développer dans ma carrière professionnelle.
 
 
 \chapter*{Bibliographie}
+\addcontentsline{toc}{chapter}{Bibliographie}
 
 \subsubsection{Page Github du Dependency Discoverer}
 
 \href{https://github.com/MicroEJ/Tool-ApiDependencyDiscoverer}{https://github.com/MicroEJ/Tool-ApiDependencyDiscoverer}
 
+\subsubsection{Page Github de MicroEJ contenant tous les projets publics dont le Dependency Discoverer}
+
+\href{https://github.com/MicroEJ}{https://github.com/MicroEJ}
+
 \subsubsection{Source principale d'exemples et conseils : stack overflow}
 
 \href{https://stackoverflow.com/}{https://stackoverflow.com/}
+
+\subsubsection{Documentation officielle d'ASM}
+
+\href{https://asm.ow2.io/}{https://asm.ow2.io/}
 
 \subsubsection{Documentation officielle de picocli}
 
@@ -845,6 +855,35 @@ Mon expérience chez MicroEJ est une réussite. Tout d'abord, et malgré le trav
 \subsubsection{Documentation officielle de Github action}
 
 \href{https://docs.github.com/en/actions}{https://docs.github.com/en/actions}
+
+\subsubsection{Site officiel d'openweathermap, contient les documentations utilisées pendant le stage}
+
+\href{https://openweathermap.org/}{https://openweathermap.org/}
+
+\subsubsection{Documentation officielle de VisualVM}
+
+\href{https://visualvm.github.io/}{https://visualvm.github.io/}
+
+\subsubsection{Site principal de MicroEJ}
+
+\href{https://www.microej.com/}{https://www.microej.com/}
+
+\subsubsection{Documentation publique de MicroEJ}
+
+\href{https://docs.microej.com/en/latest/}{https://docs.microej.com/en/latest/}
+
+\subsubsection{Site développeur de MicroEJ}
+
+\href{https://developer.microej.com/}{https://developer.microej.com/} 
+
+\subsubsection{Site officiel de RocketChat}
+
+\href{https://rocket.chat/}{https://rocket.chat/}
+
+
+
+
+
 
 
 \begin{appendices}
