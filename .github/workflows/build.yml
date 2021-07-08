@@ -12,8 +12,8 @@ jobs:
       - run: ls -a
       - run: sudo apt-get install texlive-lang-french
       - run: sudo apt-get install texlive-xetex
-      - run: xelatex rapport.tex
-      - run: xelatex rapport.tex
+      - run: xelatex BOUÉ_2021IAI_StageFI5.tex
+      - run: xelatex BOUÉ_2021IAI_StageFI5.tex
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
